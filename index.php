@@ -1,6 +1,8 @@
-<!--<?php
+<!--
+<?php
 include_once("config.php");
-?>-->
+?>
+-->
 <!doctype html>
 <html lang="en" itemscope itemtype="http://schema.org/Website">
 <head>

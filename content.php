@@ -1,1 +1,0 @@
-<div style='background-image: url(http://is4.mzstatic.com/image/pf/us/r30/Features/04/28/42/dj.fywqnrot.1500x1500-75.jpg);'><h1>Bobby V - Anonymous</h1></div>
