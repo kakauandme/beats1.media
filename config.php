@@ -13,6 +13,23 @@ $albumAnchor = "TALB";
 $artisAnchor = "TPE1";
 $titleAnchor = "TIT2";
 
+function stripRandomChars($str){
+	$str = trim($str);
+	$chars = str_split($str);
+
+	$start = 0;
+	$finish = count($chars);	
+	for ($i=1; $i < count($chars); $i++) { 
+		if(!$start && ord($chars[$i]) >= 32 && $chars[$i] < 128){
+			$start = $i;
+		}
+		if($start && (ord($chars[$i]) < 32 || ord($chars[$i]) >= 128)){
+			$finish = $i;
+			break;
+		}
+	}
+	return substr($str,$start, $finish - $start);
+}
 
 $playlist = file_get_contents($URL . 'prog.m3u8');
 
@@ -50,36 +67,18 @@ $titlePos = strpos($file, $titleAnchor);
 
 
 if($titlePos){
-	$title = trim(substr($file, $titlePos + strlen($titleAnchor), 100));
-	
-	$chars = str_split($title);
-
-	$start = 0;
-	$finish = 0;	
-	for ($i=1; $i < count($chars); $i++) { 
-		if(!$start && ord($chars[$i]) >= 32 && $chars[$i] < 128){
-			$start = $i;
-		}
-		if($start && (ord($chars[$i]) < 32 || ord($chars[$i]) >= 128)){
-			$finish = $i;
-			break;
-		}
-	}
-	$title = substr($title,$start, $finish - $start);
-	//$title = preg_replace("/[^A-Za-z0-9 ]/", '', $title);
+	$title =  stripRandomChars(substr($file, $titlePos + strlen($titleAnchor), 100));
 	echo $title . "<br>";
 }
 
 
 if($albumPos && $artistPos){
-	$album =substr($file, $albumPos + strlen($albumAnchor), $artistPos - $albumPos-strlen($albumAnchor)  );	
-	$album = preg_replace("/[^A-Za-z0-9 ]/", '', $album);
+	$album =stripRandomChars(substr($file, $albumPos + strlen($albumAnchor), $artistPos - $albumPos-strlen($albumAnchor)));	
 	echo $album . "<br>";
 }
 
 if($artistPos && $titlePos){
-	$artist =substr($file, $artistPos + strlen($artisAnchor), $titlePos - $artistPos-strlen($artisAnchor)  );	
-	$artist = preg_replace("/[^A-Za-z0-9 ]/", '', $artist);
+	$artist =stripRandomChars(substr($file, $artistPos + strlen($artisAnchor), $titlePos - $artistPos-strlen($artisAnchor)));	
 	echo $artist . "<br>";
 }else{
 	echo "not inough info";
@@ -99,17 +98,12 @@ fwrite($lastSong, $title);
 fclose($lastSong);
 
 
-
-
-
-
 $term = urlencode($artist . (isset($album)?(" " . $album):"") . " " . $title);
-//echo $term;
+echo $term;
 $iTunesJSON =  file_get_contents('http://itunes.apple.com/search?term='.$term.'&media=music&entity=song');
 $iTunesData  = json_decode($iTunesJSON, true);
 
 if($iTunesData["resultCount"] == 0){
-
 	echo "no itunes info";
 	return;
 }
