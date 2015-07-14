@@ -6,9 +6,9 @@ include_once("config.php");
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-<title itemprop="name">Beats Media</title>
+<title itemprop="name">Beats 1 Media</title>
 <?php /*SEO */ ?>
-<meta name="description" content="Cureent song at Beats 1 radio" itemprop="description" />
+<meta name="description" content="Curent song playing at Beats 1 Radio by Apple Music" itemprop="description" />
 <?php /*CSS */ ?>
 <style>
 *{
@@ -90,6 +90,15 @@ a{
 </head>
 <body id="body">
 <?php include_once("content.php"); ?>
-<p class="footer">&copy <?php echo date("Y"); ?> Beats Media by <a href="https://twitter.com/KaKaUandME" alt="Twitter of KaKaUandME">@kakauandme</a></p>
+<p class="footer">&copy <?php echo date("Y"); ?> Beats 1 Media by <a href="https://twitter.com/KaKaUandME" alt="Twitter of KaKaUandME">@kakauandme</a></p>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40067737-11', 'auto');
+  ga('send', 'pageview');
+</script>
 </body>
 </html>
