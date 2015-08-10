@@ -1,6 +1,9 @@
 <?php 
 
-$time_start = microtime(true);
+
+require_once("variables.php");
+
+//$time_start = microtime(true);
 
 
 
@@ -37,14 +40,6 @@ function logText($str){
 }
 
 
-function timeExecution($str){
-	$tmp = microtime(true);
-	
-	global $time_start;
-	global $newLine;
-	echo "TIME " . $str.": " . round($tmp - $time_start,4) . " sec".$newLine;
-	$time_start = $tmp;
-}
 
 
 function connect(){
@@ -78,6 +73,28 @@ function getLastRecord(){
 		$result->close();
 	}
 	return $lastRecord;
+}
+function getTopTracks($limit){
+
+	global $connection;	
+
+	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, m.artworkUrl1500, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY m.trackId, m.trackName, m.artistName, m.artworkUrl100 ORDER BY plays DESC LIMIT ".$limit.";";
+	//echo 	$sql ;
+	$topTracks = FALSE;
+
+	if($result = $connection->query($sql)){
+
+		if ($result->num_rows > 0 ) {
+			$topTracks = array();
+			while($obj = $result->fetch_object()) {
+		      array_push($topTracks,$obj); 
+		    }
+		
+
+		}
+		$result->close();
+	}
+	return $topTracks;
 }
 
 
@@ -164,28 +181,3 @@ function disconnect(){
 	global $connection;
 	 $connection->close();
 }
-
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "beats1.media";
-
-// // Create connection
-// $conn = new mysqli($servername, $username, $password, $dbname);
-// // Check connection
-// if ($conn->connect_error) {
-//     die("MySQL connection failed: " . $conn->connect_error);
-// } 
-
-// $sql = "SELECT lastfile, lastsong FROM meta ODER BY id LIMIT 1";
-// $result = $conn->query($sql);
-
-// if ($result->num_rows > 0) {
-//     // output data of each row
-//     while($row = $result->fetch_assoc()) {
-//         echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-//     }
-// } else {
-//     echo "0 results";
-// }
-// $conn->close();
