@@ -319,6 +319,16 @@ AddDefaultCharset utf-8
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+
+
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.php
+    RewriteRule ^/?(.*)\.php$ /$1 [L,R=301]
+
+    # check to see if the request is for a PHP file:
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^/?(.*)$ /$1.php [L]
+
+
 </IfModule>
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

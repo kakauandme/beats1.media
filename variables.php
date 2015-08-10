@@ -13,3 +13,10 @@
 
 	$artworkAnchor = "artworkURL_640x";
 	$extentionAnchor = ".jpg";
+
+
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "beats1.media";

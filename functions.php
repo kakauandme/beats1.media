@@ -2,10 +2,7 @@
 
 $time_start = microtime(true);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "beats1.media";
+
 
 $connection = null;
 
@@ -151,7 +148,6 @@ function insertMedia($data){
 	}
 
 	$sql = 'INSERT INTO plays VALUES('. $data["trackId"].', CURRENT_TIMESTAMP);';
-	logText($sql);
 	if(!$connection->query($sql)){
 			logText('Error : ('. $connection->errno .') '. $connection->error);
 	}else{
