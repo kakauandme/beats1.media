@@ -16,7 +16,7 @@
 <?php require_once("header.php"); ?>
 </head>
 <body id="body">
-<div style='background-image: url(<?php echo $lastRecord->artwork;?>);'><h1><?php echo $lastRecord->artist;?> &mdash; <?php echo $lastRecord->title;?></h1></div>
+<div class="now" style='background-image: url(<?php echo $lastRecord->artwork;?>);'><h1><?php echo $lastRecord->artist;?> &mdash; <?php echo $lastRecord->title;?></h1></div>
 <?php require_once("copy.php"); ?>
 <?php /*Footer */ ?>
 <?php require_once("footer.php"); ?>

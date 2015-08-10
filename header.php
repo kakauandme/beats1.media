@@ -9,8 +9,9 @@ body{
 	font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0;
 	position: relative;
+	background-color: #000;
 }
-body > div{
+body > div.now{
 	height: 100vh;
 	background-size: cover;
 	background-position: center center;
@@ -45,10 +46,6 @@ a{
 	text-decoration: none;
 	color: white;
 }
-.grid{
-	background-color: #000;
-}
-
 .grid-item{
 	width: 25%;
 	background-color: #000;
@@ -99,9 +96,7 @@ a{
 	}
 	.grid-item:nth-child(4n+4){
 		width: 10%;
-	}
-	
-	
+	}	
 }
 </style>
 <?php /*browsers */ ?>
