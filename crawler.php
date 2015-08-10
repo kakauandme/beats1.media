@@ -1,118 +1,122 @@
 <?php 
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
+	
+	$newLine = "<br />";
+
+	require_once("functions.php");
+	require_once("variables.php");
+
+	
+	//timeExecution("Setup");
+	connect();
+	$lastRecord = getLastRecord();
+	//timeExecution("Query DB");
 
 
-$URL = 'http://itsliveradiobackup.apple.com/streams/hub02/session02/64k/';
+	$playlist = file_get_contents($mediaPath . $playlistFilename);
 
-$path  =  getcwd() . "/";
+	//timeExecution("Read playlist");
+	
 
-$albumAnchor = "TALB";
-$artisAnchor = "TPE1";
-$titleAnchor = "TIT2";
+	$pos = strrpos($playlist, ",");
 
-function stripRandomChars($str){
-	$str = trim($str);
-	$chars = str_split($str);
+	$fileName = trim(substr($playlist, $pos + 2));//get last file	
+	
 
-	$start = 0;
-	$finish = count($chars);	
-	for ($i=1; $i < count($chars); $i++) { 
-		if(!$start && ord($chars[$i]) > 32 && $chars[$i] < 128){
-			$start = $i;
+	if(!$lastRecord || $lastRecord->filename != $fileName){
+
+		$file = file_get_contents($mediaPath . $fileName, false,NULL,-1, 3000);
+
+		//timeExecution("Read track");;
+		
+
+		$albumPos = strpos($file, $albumAnchor);
+		$artistPos = strpos($file,$artisAnchor);
+		$titlePos = strpos($file, $titleAnchor);
+
+		$artworkPos = strpos($file, $artworkAnchor); 
+		$extentionPos = strpos($file, $extentionAnchor, $artworkPos);
+		
+
+		if($titlePos){
+			$title =  stripRandomChars(substr($file, $titlePos + strlen($titleAnchor), 100));
+
+			if(strlen($title) < 3){
+				logText($file);
+			}
+			logText("Title: ".$title);
 		}
-		if($start && (ord($chars[$i]) < 32 || ord($chars[$i]) >= 128)){
-			$finish = $i;
-			break;
+		$album = "";
+		if($albumPos && $artistPos){
+			$album =stripRandomChars(substr($file, $albumPos + strlen($albumAnchor), $artistPos - $albumPos-strlen($albumAnchor)));	
+			logText("Album: ".$album );
 		}
+
+		if($artistPos && $titlePos){
+			$artist =stripRandomChars(substr($file, $artistPos + strlen($artisAnchor), $titlePos - $artistPos-strlen($artisAnchor)));	
+			logText("Artist:".$artist);
+		}
+		// else{
+		// 	logText("Not inough info");
+		// 	return;
+		// }
+
+		if($artworkPos && $extentionPos){
+			$artwork =  stripRandomChars(substr($file,$artworkPos + strlen($artworkAnchor),	$extentionPos + strlen($extentionAnchor) - $artworkPos-strlen($artworkAnchor)));
+			logText("Artwork: ". $artwork);
+		}
+		//timeExecution("Parse info");
+		
+		if(isset($title) && isset($artist)){
+
+			if(!$lastRecord ||  $lastRecord->title != $title ){
+
+				insertRecord($fileName, $title, $album, $artist, $artwork);
+
+				//timeExecution("Insert record");
+
+				//iTunes API request
+				$term = urlencode($artist . (isset($album)?(" " . $album):"") . " " . $title);
+				// //echo $term;
+				$iTunesJSON =  file_get_contents('http://itunes.apple.com/search?term='.$term.'&media=music&entity=song');
+				$iTunesData  = json_decode($iTunesJSON, true);
+
+				if($iTunesData["resultCount"] > 0){
+
+					 $iTunesMetadata = $iTunesData["results"][0];
+					 //timeExecution("Pull iTunes data");
+					 $iTunesMetadata["artworkUrl1500"] = str_replace(".100x100-75", ".1500x1500-75", $iTunesMetadata["artworkUrl100"]);				
+
+					 insertMedia($iTunesMetadata);
+					 //timeExecution("Add media");
+					
+				}else{
+					logText("No itunes info");
+				}
+
+				//$content = "<div style='background-image: url({$artwork});'><h1>{$artist} - {$title}</h1></div>";
+
+
+
+				// $contentFile = fopen("content.php", "w");
+				// fwrite($contentFile, $content);
+				// fclose($contentFile);
+
+			}elseif($lastRecord){
+				//UPDATE filename in DB
+				updateRecord($lastRecord->id, $fileName);
+				//timeExecution("Update record");
+				logText("Song duplicate");
+				
+			}
+		}else{
+			logText("Not enough info");
+			logText($file);
+		}
+
+	}else{
+		logText("File duplicate");
 	}
-	return substr($str,$start, $finish - $start);
-}
+	disconnect();
 
-$playlist = file_get_contents($URL . 'prog.m3u8');
-
-$pos = strrpos($playlist, ",");
-
-$fileName = trim(substr($playlist, $pos + 2));//get last file
-
-
-$lastFileContent = file_get_contents("lastFile.txt");
-
-
-if($fileName == $lastFileContent){
-	echo "file duplicate";
-	return;
-}
-
-$lastFile = fopen("lastFile.txt", "w");
-fwrite($lastFile, $fileName);
-fclose($lastFile);
-
-
-
-//echo $fileName . "\r\n";
-
-
-$file = file_get_contents($URL . $fileName, false,NULL,-1, 3000);
-
-
-//echo $file. "<br>";
-
-
-$albumPos = strpos($file, $albumAnchor);
-$artistPos = strpos($file,$artisAnchor);
-$titlePos = strpos($file, $titleAnchor);
-
-
-if($titlePos){
-	$title =  stripRandomChars(substr($file, $titlePos + strlen($titleAnchor), 100));
-	echo $title . "<br>";
-}
-
-
-if($albumPos && $artistPos){
-	$album =stripRandomChars(substr($file, $albumPos + strlen($albumAnchor), $artistPos - $albumPos-strlen($albumAnchor)));	
-	echo $album . "<br>";
-}
-
-if($artistPos && $titlePos){
-	$artist =stripRandomChars(substr($file, $artistPos + strlen($artisAnchor), $titlePos - $artistPos-strlen($artisAnchor)));	
-	echo $artist . "<br>";
-}else{
-	echo "not inough info";
-	return;
-}
-
-
-
-
-$lastSongContent = file_get_contents("lastSong.txt");
-if($title  == $lastSongContent){
-	echo "song duplicate";
-	return;
-}
-$lastSong = fopen("lastSong.txt", "w");
-fwrite($lastSong, $title);
-fclose($lastSong);
-
-
-$term = urlencode($artist . (isset($album)?(" " . $album):"") . " " . $title);
-//echo $term;
-$iTunesJSON =  file_get_contents('http://itunes.apple.com/search?term='.$term.'&media=music&entity=song');
-$iTunesData  = json_decode($iTunesJSON, true);
-
-if($iTunesData["resultCount"] == 0){
-	echo "no itunes info";
-	return;
-}
-
-$iTunesMetadata = $iTunesData["results"][0];
-$iTunesMetadata["artworkUrl1500"] = str_replace(".100x100-75", ".1500x1500-75", $iTunesMetadata["artworkUrl100"]);
-$content = "<div style='background-image: url({$iTunesMetadata["artworkUrl1500"]});'><h1>{$iTunesMetadata["artistName"]} - {$iTunesMetadata["trackName"]}</h1></div>";
-
-
-$contentFile = fopen("content.php", "w");
-fwrite($contentFile, $content);
-fclose($contentFile);
+	
