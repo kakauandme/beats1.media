@@ -16,8 +16,9 @@
 <?php require_once("header.php"); ?>
 </head>
 <body id="body">
-<div class="now" style='background-image: url(<?php echo $lastRecord->artwork;?>);'><h1><?php echo $lastRecord->artist;?> &mdash; <?php echo $lastRecord->title;?></h1></div>
-<?php require_once("copy.php"); ?>
+<div class="now" style='background-image: url(<?php echo str_replace("###x###", "1500x1500", $lastRecord->artworkUrl);?>);'><h1><?php echo $lastRecord->artistName;?> &mdash; <?php echo $lastRecord->trackName;?></h1>
+<?php require_once("copy.php"); ?>	
+</div>
 <?php /*Footer */ ?>
 <?php require_once("footer.php"); ?>
 </body>

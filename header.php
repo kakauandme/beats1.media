@@ -5,11 +5,19 @@
 *{
   box-sizing: border-box;
 }
+html{
+
+}
 body{
 	font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0;
 	position: relative;
 	background-color: #000;
+	color: white;
+}
+a{
+	text-decoration: none;
+	color: white;
 }
 body > div.now{
 	height: 100vh;
@@ -17,7 +25,7 @@ body > div.now{
 	background-position: center center;
 	background-repeat: no-repeat;	
 }
-h1{
+body > div.now h1{
 	font-weight: 200;
 	margin: 0;
 	padding: 1em;
@@ -30,7 +38,7 @@ h1{
 	opacity: 0.8;
 
 }
-.footer{
+body > div.now p.footer{
 	position: absolute;
 	padding: 1em;
 	margin: 0;
@@ -42,37 +50,52 @@ h1{
 	background-color: black;
 	opacity: 0.8;
 }
-a{
-	text-decoration: none;
-	color: white;
-}
+
+
 .grid-item{
-	width: 25%;
-	background-color: #000;
+	width: 20%;
+	padding-bottom: 20%;
 }
-.grid-item a.album{
+.grid-item:nth-child(4n+4){
+	width: 40%;
+	padding-bottom: 40%;
+}
+
+.grid-item:nth-child(12n){
+	width: 60%;
+	padding-bottom: 60%;
+}
+.grid-item.now{
+	width: 80%;
+	padding-bottom: 80%;
+	
+}
+.grid-item.footer{
+	width: 100%;
+	padding-bottom: 0;
+}
+.grid-item.footer p.footer{
+	padding: 1em;
+	text-align: center;
+	width: 100%;
+	margin: 0;
+}
+.grid-item a.album-link{
+	position: absolute;
 	width: 100%;
 	display: block;
 }
-.grid-item.info{
-	width: 100%;
 
-}
-@media (min-width: 800px) {
-	.grid-item.info{
-		width: 25% !important;
-
-	}
-}
-.grid-item .footer{
-	position: relative;
-}
 .grid-item img{
 	width: 100%;
 	opacity: 0;
 	transition: opacity 1s ease;
 	display: block;
 }
+.grid-item img.ready{
+	opacity: 1;
+}
+
 
 .grid-item:nth-child(3n+1) img{
 	transition-delay: 300ms;
@@ -87,17 +110,8 @@ a{
 	transition-duration: 800ms;
 
 }
-.grid-item img.ready{
-	opacity: 1;
-}
-@media (min-width: 800px) {
-	.grid-item{
-		width: 5%;
-	}
-	.grid-item:nth-child(4n+4){
-		width: 10%;
-	}	
-}
+
+
 </style>
 <?php /*browsers */ ?>
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">

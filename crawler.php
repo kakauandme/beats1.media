@@ -9,7 +9,7 @@
 	
 	//timeExecution("Setup");
 	connect();
-	$lastRecord = getLastRecord();
+	$lastRecord = getLastMeta();
 	//timeExecution("Query DB");
 
 
@@ -85,7 +85,7 @@
 
 					 $iTunesMetadata = $iTunesData["results"][0];
 					 //timeExecution("Pull iTunes data");
-					 $iTunesMetadata["artworkUrl1500"] = str_replace(".100x100-75", ".1500x1500-75", $iTunesMetadata["artworkUrl100"]);				
+					 $iTunesMetadata["artworkUrl"] = str_replace(".100x100-75", ".###x###-75", $iTunesMetadata["artworkUrl100"]);				
 
 					 insertMedia($iTunesMetadata);
 					 //timeExecution("Add media");
