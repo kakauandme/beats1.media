@@ -25,26 +25,50 @@ shuffle ( $topTracks);
 	$cnt= 0;
 	$randomPos = rand(0, count($topTracks));
 	foreach ($topTracks as  $track) {
+		if($cnt++ == $randomPos){
+			echo '<div class="grid-item now-playing" data-id="'. $lastTrack->trackId .'" data-src= "'.$lastTrack->artworkUrl100.'">'.
+				'<a class="preview" data-plays="' . $lastTrack->plays .'" target="_blank" href="' . $lastTrack->trackViewUrl .'" title="Now playing '.$lastTrack->trackName . ' &mdash; '.$lastTrack->artistName. '">'.
+					'<img class="artwork" src= "'.$lastTrack->artworkUrl100.'"  alt="'.$lastTrack->trackName. ' &mdash; '.$lastTrack->artistName. '" />'.
+				'<div class="badge"></div></a>'.
+			'</div>';
+		}
 		echo '<div class="grid-item" data-id="'. $track->trackId .'" data-src= "'.$track->artworkUrl100.'">'.
 			'<a class="preview" data-plays="' . $track->plays .'" target="_blank" href="' . $track->trackViewUrl .'" title="'.$track->trackName . ' &mdash; '.$track->artistName. '">'.
 				'<img class="artwork" src="'.$track->artworkUrl100.'"  alt="'.$track->trackName. ' &mdash; '.$track->artistName. '" />'.
 			'</a>'.'
 		</div>';
-		if($cnt++ == $randomPos){
-			echo '<div class="grid-item now-playing" data-id="'. $lastTrack->trackId .'" data-src= "'.$lastTrack->artworkUrl100.'">'.
-				'<a class="preview" data-plays="' . $lastTrack->plays .'" target="_blank" href="' . $lastTrack->trackViewUrl .'" title="Now playing '.$lastTrack->trackName . ' &mdash; '.$lastTrack->artistName. '">'.
-					'<img class="artwork" src= "'.$lastTrack->artworkUrl100.'"  alt="'.$lastTrack->trackName. ' &mdash; '.$lastTrack->artistName. '" />'.
-				'</a>'.
-			'</div>';
-		}
+		
 	}
 	echo '</div>';
 	require_once("copy.php");
 	?>
 	<script>
 		var body = document.getElementById("top"); body.className = ""; //remove no-js
+		var grid = document.getElementById("grid");
 
 		var artworkSizes = [200,400,600,1200,1500];
+
+		var r = false;
+		var s = document.createElement('script');
+		s.type = 'text/javascript';  
+		s.async = "async";
+		s.onload = s.onreadystatechange = function() {
+			//console.log( this.readyState ); //uncomment this line to see which ready states are called.
+			if ( !r && (!this.readyState || this.readyState == 'complete') )
+			{
+				r = true;
+				reorderGrid(grid);
+			}
+		};
+		var t = document.getElementsByTagName('script')[0];
+		t.parentNode.insertBefore(s, t);
+		s.src = "https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js"; 
+
+
+		var items = grid.children;
+		for (var i = 0; i < items.length; i++) {
+				loadImage(items[i]);
+		};		
 
 		function loadImage(item){
 			var width = item.offsetWidth;
@@ -88,27 +112,7 @@ shuffle ( $topTracks);
 		 	});
 
 		}
-		var grid = document.getElementById("grid");
-		var items = grid.children;
-		for (var i = 0; i < items.length; i++) {
-				loadImage(items[i]);
-		};
-
-		var r = false;
-		var s = document.createElement('script');
-		s.type = 'text/javascript';  
-		s.async = "async";
-		s.onload = s.onreadystatechange = function() {
-			//console.log( this.readyState ); //uncomment this line to see which ready states are called.
-			if ( !r && (!this.readyState || this.readyState == 'complete') )
-			{
-				r = true;
-				reorderGrid(grid);
-			}
-		};
-		var t = document.getElementsByTagName('script')[0];
-		t.parentNode.insertBefore(s, t);
-		s.src = "https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js";  
+		
   </script>
   <?php /*Footer */ ?>
   <?php require_once("footer.php"); ?>
