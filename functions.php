@@ -56,9 +56,9 @@ function connect(){
 }
 
 
-function getLastRecord(){
+function getLastTrack(){
 	global $connection;	
-	$sql = "SELECT   m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, p.date, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, p.date ORDER BY p.date DESC LIMIT 1;";
+	$sql = "SELECT p.date, m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY p.date, m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl ORDER BY p.date DESC LIMIT 1;";
 	//echo 	$sql ;
 	$lastRecord = FALSE;
 
@@ -75,7 +75,7 @@ function getLastRecord(){
 }
 function getLastMeta(){
 	global $connection;	
-	$sql = "SELECT id, filename, title, album, artist, artwork FROM meta ORDER BY id DESC LIMIT 1";
+	$sql = "SELECT id, filename, title, album, artist FROM meta ORDER BY id DESC LIMIT 1";
 	//echo 	$sql ;
 	$lastRecord = FALSE;
 

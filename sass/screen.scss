@@ -1,0 +1,68 @@
+@import "global";
+
+
+#top{
+
+	p.copyright{
+		text-align: center;
+		width: 100%;
+	}
+}
+.grid-item{
+	width: 20%;
+	padding-bottom: 20%;
+	opacity: 0;
+	transition-property: opacity;
+	transition-timing-function: ease-out;
+	overflow: hidden;
+	position: relative;
+
+	&:nth-child(4n+4){
+		width: 40%;
+		padding-bottom: 40%;
+	}
+	&:nth-child(12n){
+		width: 60%;
+		padding-bottom: 60%;
+	}
+	&:nth-child(8){
+		width: 80%;
+		padding-bottom: 80%;
+		
+	}
+
+	&.ready{
+		opacity: 1;
+	}
+	&:nth-child(3n+1){
+		transition-delay: 100ms;
+		transition-duration: 1000ms;
+	}
+	&:nth-child(3n+2){
+
+		transition-delay: 300ms;
+		transition-duration: 600ms;
+	}
+	&:nth-child(3n+3){
+		transition-delay: 0ms;
+		transition-duration: 700ms;
+	}
+	.no-js &{
+		opacity: 1;
+		width: 25%;
+		padding-bottom: 25%;
+		display: inline-block;
+		position: relative;
+		vertical-align: top;
+	}
+	a.preview{
+		position: absolute;
+		width: 100%;
+		display: block;
+	}
+	img.artwork{
+		width: 100%;		
+		display: block;
+	}
+}
+

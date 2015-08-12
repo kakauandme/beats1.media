@@ -7,3 +7,6 @@ lastSong.txt
 custom_log
 
 error_log
+*.map
+
+config.codekit

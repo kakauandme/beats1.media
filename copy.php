@@ -1,1 +1,1 @@
-<p class="footer">&copy <?php echo date("Y"); ?> Beats 1 Media by <a href="https://twitter.com/KaKaUandME" title="Kirill Kliavin on Twitter">@kakauandme</a></p>
+<p class="copyright">&copy; <?php echo date("Y"); ?> Beats1 Media by <a href="https://twitter.com/KaKaUandME" title="Kirill Kliavin on Twitter">@kakauandme</a></p>
