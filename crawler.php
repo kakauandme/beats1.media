@@ -85,7 +85,6 @@
 
 					 $iTunesMetadata = $iTunesData["results"][0];
 					 //timeExecution("Pull iTunes data");
-					 $iTunesMetadata["artworkUrl"] = str_replace(".100x100-75", ".###x###-75", $iTunesMetadata["artworkUrl100"]);				
 
 					 insertMedia($iTunesMetadata);
 					 //timeExecution("Add media");

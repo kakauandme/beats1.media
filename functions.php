@@ -58,7 +58,7 @@ function connect(){
 
 function getLastRecord(){
 	global $connection;	
-	$sql = "SELECT  p.date, m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, m.artworkUrl,  COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, m.artworkUrl, p.date ORDER BY p.date DESC LIMIT 1;";
+	$sql = "SELECT   m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, p.date, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, p.date ORDER BY p.date DESC LIMIT 1;";
 	//echo 	$sql ;
 	$lastRecord = FALSE;
 
@@ -94,7 +94,7 @@ function getTopTracks($limit){
 
 	global $connection;	
 
-	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, m.artworkUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, m.artworkUrl ORDER BY plays DESC LIMIT ".$limit.";";
+	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
 	//echo 	$sql ;
 	$topTracks = FALSE;
 
@@ -159,7 +159,6 @@ function insertMedia($data){
 			'"'.$data["artworkUrl30"].'",'.
 			'"'.$data["artworkUrl60"].'",'.
 			'"'.$data["artworkUrl100"].'",'.
-			'"'.$data["artworkUrl1500"].'",'.
 			$data["trackPrice"].','.
 			'"'.date ("Y-m-d H:i:s", strtotime($data["releaseDate"])).'",'.
 			$data["trackTimeMillis"].','.

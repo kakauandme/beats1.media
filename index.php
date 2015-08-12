@@ -24,9 +24,9 @@
 	echo '<div class="grid">';
   $cnt= 0;
 	foreach ($topTracks as  $track) {
-		echo '<div class="grid-item"><a class="album-link" data-plays="' . $track->plays .'" target="_blank" href="' . $track->trackViewUrl .'" title="'.$track->trackName . ' &mdash; '.$track->artistName. '"><img class="artwork" src data-src= "'.$track->artworkUrl.'"  alt="'.$track->trackName. ' &mdash; '.$track->artistName. '" /></a></div>';
+		echo '<div class="grid-item"><a class="album-link" data-plays="' . $track->plays .'" target="_blank" href="' . $track->trackViewUrl .'" title="'.$track->trackName . ' &mdash; '.$track->artistName. '"><img class="artwork" src data-src= "'.$track->artworkUrl100.'"  alt="'.$track->trackName. ' &mdash; '.$track->artistName. '" /></a></div>';
     if($cnt++ == 6){
-      echo '<div class="grid-item now"><a class="album-link" data-plays="' . $lastRecord->plays .'" target="_blank" href="' . $lastRecord->trackViewUrl .'" title="Now playing '.$lastRecord->trackName . ' &mdash; '.$lastRecord->artistName. '"><img class="artwork" src data-src= "'.$lastRecord->artworkUrl.'"  alt="'.$lastRecord->trackName. ' &mdash; '.$lastRecord->artistName. '" /></a></div>';
+      echo '<div class="grid-item now"><a class="album-link" data-plays="' . $lastRecord->plays .'" target="_blank" href="' . $lastRecord->trackViewUrl .'" title="Now playing '.$lastRecord->trackName . ' &mdash; '.$lastRecord->artistName. '"><img class="artwork" src data-src= "'.$lastRecord->artworkUrl100.'"  alt="'.$lastRecord->trackName. ' &mdash; '.$lastRecord->artistName. '" /></a></div>';
     }
 	}
 	echo '<div class="grid-item footer">';
@@ -52,7 +52,7 @@
             break;
         }
       };
-      img.src = src.replace("###x###", newWidth+"x"+newWidth);
+      img.src = src.replace("100x100", newWidth+"x"+newWidth);
     }else{
       container.parentElement.removeChild(container);
     }
