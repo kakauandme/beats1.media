@@ -12,12 +12,17 @@ body{
 	font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin: 0;
 	position: relative;
-	background-color: #000;
-	color: white;
+	background-color: #fff;
+	color: #333;
+	
 }
 a{
 	text-decoration: none;
-	color: white;
+	color: #000;
+}
+a:hover{
+	text-decoration: underline;
+	color: #222;
 }
 body > div.now{
 	height: 100vh;
@@ -32,9 +37,8 @@ body > div.now h1{
 	position: absolute;
 	left: 0;
 	top: 0;
-	color: white;
 	width: 100%;
-	background-color: black;
+	background-color: #fff;
 	opacity: 0.8;
 
 }
@@ -44,10 +48,9 @@ body > div.now p.footer{
 	margin: 0;
 	right: 0;
 	bottom: 0;
-	color: white;
 	width: 100%;
 	text-align: right;
-	background-color: black;
+	background-color: #fff;
 	opacity: 0.8;
 }
 

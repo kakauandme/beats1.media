@@ -34,8 +34,8 @@
 		$artistPos = strpos($file,$artisAnchor);
 		$titlePos = strpos($file, $titleAnchor);
 
-		$artworkPos = strpos($file, $artworkAnchor); 
-		$extentionPos = strpos($file, $extentionAnchor, $artworkPos);
+		//$artworkPos = strpos($file, $artworkAnchor); 
+		//$extentionPos = strpos($file, $extentionAnchor, $artworkPos);
 		
 
 		if($titlePos){
@@ -61,24 +61,24 @@
 		// 	return;
 		// }
 
-		if($artworkPos && $extentionPos){
-			$artwork =  stripRandomChars(substr($file,$artworkPos + strlen($artworkAnchor),	$extentionPos + strlen($extentionAnchor) - $artworkPos-strlen($artworkAnchor)));
-			logText("Artwork: ". $artwork);
-		}
+		// if($artworkPos && $extentionPos){
+		// 	$artwork =  stripRandomChars(substr($file,$artworkPos + strlen($artworkAnchor),	$extentionPos + strlen($extentionAnchor) - $artworkPos-strlen($artworkAnchor)));
+		// 	logText("Artwork: ". $artwork);
+		// }
 		//timeExecution("Parse info");
 		
 		if(isset($title) && isset($artist)){
 
 			if(!$lastRecord ||  $lastRecord->title != $title ){
 
-				insertRecord($fileName, $title, $album, $artist, $artwork);
+				insertRecord($fileName, $title, $album, $artist);
 
 				//timeExecution("Insert record");
 
 				//iTunes API request
 				$term = urlencode($artist . (isset($album)?(" " . $album):"") . " " . $title);
 				// //echo $term;
-				$iTunesJSON =  file_get_contents('http://itunes.apple.com/search?term='.$term.'&media=music&entity=song');
+				$iTunesJSON =  file_get_contents('http://itunes.apple.com/search?term='.$term.'&media=music&entity=song&limit=1');
 				$iTunesData  = json_decode($iTunesJSON, true);
 
 				if($iTunesData["resultCount"] > 0){

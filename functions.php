@@ -114,11 +114,11 @@ function getTopTracks($limit){
 }
 
 
-function insertRecord($fileName, $title, $album, $artist, $artwork){
+function insertRecord($fileName, $title, $album, $artist){
 
 	global $connection;	
 
-	$sql = "INSERT INTO meta (filename,title,album,artist,artwork) VALUES ('" . mysql_escape_string($fileName) . "', '" . mysql_escape_string($title) . "', '".mysql_escape_string($album)."', '". mysql_escape_string($artist). "', '". mysql_escape_string($artwork). "');";
+	$sql = "INSERT INTO meta (filename,title,album,artist) VALUES ('" . mysql_escape_string($fileName) . "', '" . mysql_escape_string($title) . "', '".mysql_escape_string($album)."', '". mysql_escape_string($artist). "');";
 	//echo $sql;
 	if(!$connection->query($sql)){
 		logText('Error : ('. $connection->errno .') '. $connection->error);
