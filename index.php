@@ -72,11 +72,18 @@ shuffle ( $topTracks);
 
 		function loadImage(item){
 			var width = item.offsetWidth;
-			var img = item.getElementsByTagName("img")[0];			
-			if(width > 100){				
+
+			if(width > 100){
+				var img = item.getElementsByTagName("img")[0];
+										
 				img.src = "";
 			  	var src = item.getAttribute("data-src");
-			  	
+			  	img.onload=function(){
+	  				item.className+=" ready";
+			  	};
+			  	img.onerror=function(){
+			  		item.parentElement.removeChild(item);
+			  	};
 			  	if(src && width){
 			  		
 
@@ -92,13 +99,10 @@ shuffle ( $topTracks);
 			  		item.parentElement.removeChild(item);
 			  	}
 
+			}else{
+				item.className+= " ready";
 			}
-			img.onload=function(){
-	  			item.className+=" ready";
-		  	};
-		  	img.onerror=function(){
-		  		item.parentElement.removeChild(item);
-		  	};	
+			
 			//detect country and swap link url  	
 		}
 

@@ -36,9 +36,11 @@
 	&.ready{
 		opacity: 1;
 	}
+	transition-delay: 200ms;
+	transition-duration: 500ms;
 	&:nth-child(3n+1){
 		transition-delay: 100ms;
-		transition-duration: 1000ms;
+		transition-duration: 900ms;
 	}
 	&:nth-child(3n+2){
 
