@@ -1,5 +1,9 @@
 <?php
-	require_once("functions.php");
+	require_once("partials/functions.php");
+	require_once("partials/templates.php");
+	require_once("Mustache/Autoloader.php");
+	Mustache_Autoloader::register();
+	$m = new Mustache_Engine;
 	connect();
 	$lastTrack = getLastTrack();
 	disconnect();
@@ -13,15 +17,17 @@
 <?php /*SEO */ ?>
 <meta name="description" content="Curently playing on Beats 1 Radio by Apple Music" itemprop="description" />
 <?php /*Header */ ?>
-<?php require_once("header.php"); ?>
+<?php require_once("partials/header.php"); ?>
 <?php /*CSS */ ?>
 <link rel="stylesheet" type="text/css" href="/css/now.css" media="all">
 </head>
 <body id="body">
-<div class="now" style='background-image: url(<?php echo str_replace("100x100", "1500x1500", $lastTrack->artworkUrl100);?>);'><h1><?php echo $lastTrack->artistName;?> &mdash; <?php echo $lastTrack->trackName;?></h1>
-<?php require_once("copy.php"); ?>	
-</div>
+	<?php 
+		$lastTrack->artworkUrl = str_replace("100x100", "1500x1500", $lastTrack->artworkUrl100);
+		echo $m->render($templates["now"],$lastTrack);
+		require_once("partials/copy.php"); ?>	
+	</div>
 <?php /*Footer */ ?>
-<?php require_once("footer.php"); ?>
+<?php require_once("partials/footer.php"); ?>
 </body>
 </html>

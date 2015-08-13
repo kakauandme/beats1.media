@@ -1,0 +1,39 @@
+// .grid-item{
+// 	transition-delay: 0;
+// 	transition-duration: 500ms;
+// 	transition-property: transform;
+// 	transition-timing-function: ease;
+// 	&:hover{
+// 		transform: scale(1.02);
+// 		//z-index: 1;
+
+// 	}
+// }
+
+.badge{
+	background-color: rgba(0,0,0,0.25);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 50% 50%;
+	height: 100%;
+	left: 0;
+	opacity: 0.5;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	&:hover{
+		background-color: transparent;
+		opacity: 0.75;
+	}
+}
+
+&.now-playing{
+	.badge{			
+		background-image: url(../img/playing.svg);			
+	}
+}
+&.most-played{
+	.badge{			
+		background-image: url(../img/winner.svg);			
+	}
+}

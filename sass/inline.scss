@@ -9,33 +9,36 @@
 	}
 }
 .grid-item{
-	width: 20%;
-	padding-bottom: 20%;	
+	display: inline-block;	
 	overflow: hidden;
+	height: 20vw;
 	position: relative;
-	display: inline-block;
+	// transition-delay: 1000ms;
+	// transition-duration: 500ms;
+	// transition-property: background-color;
+	// transition-timing-function: ease-out;
 	vertical-align: top;
+	width: 20vw;
+	// @media all and (min-width: 768px) {
+	// 	border: 0.5em solid red;
+	// }
+
+	//background-color: white;
 
 
 	&:nth-child(4n+4){
-		width: 40%;
 		padding-bottom: 40%;
+		width: 40%;
 	}
 	&:nth-child(12n){
-		width: 60%;
 		padding-bottom: 60%;
+		width: 60%;
 	}
 	&:nth-child(8){
-		width: 80%;
 		padding-bottom: 80%;
+		width: 80%;
 		
 	}
-
-	background-color: white;
-	// transition-property: background-color;
-	// transition-timing-function: ease-out;
-	// transition-delay: 1000ms;
-	// transition-duration: 500ms;
 
 	// &:nth-child(3n+1){
 	// 	transition-delay: 1400ms;
@@ -47,56 +50,30 @@
 	// 	transition-delay: 1200ms;
 	// }
 	
-	&.complete{
-		background-color: black;
-	}
+	// &.complete{
+	// 	background-color: black;
+	// }
 
-	.badge{
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0,0,0,0.25);
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-size: 50% 50%;
-		opacity: 0.5;
-		&:hover{
-			background-color: transparent;
-			opacity: 0.75;
-		}
-	}
 	
-	&.now-playing{
-		.badge{			
-			background-image: url(../img/playing.svg);			
-		}
-	}
-	&.winner{
-		.badge{			
-			background-image: url(../img/winner.svg);			
-		}
-	}
 
 	a.preview{
-		position: absolute;
-		width: 100%;
 		display: block;
 		opacity: 0;
-		// transition-property: opacity, filter;
-		// -webkit-transition-property: opacity, -webkit-filter;
-		// transition-timing-function: ease-out;
+		position: absolute;
 		// transition-delay: 200ms;
-		// transition-duration: 500ms;
+		// -webkit-transition-property: opacity, -webkit-filter;
+		// transition-property: opacity, filter;
+		// transition-timing-function: ease-out;
+		width: 100%;
+		// transition-duration: 500ms
 		
 	}
 	.no-js &{
+		padding-bottom: 25%;
+		width: 25%;
 		a.preview{
 			opacity: 1;
-		}
-		width: 25%;
-		padding-bottom: 25%;		
+		}		
 	}
 	
 
@@ -105,6 +82,7 @@
 	}
 	&.loading a.preview{
 		// filter: blur(3px);
+		opacity: 1;
 		// @media all and (min-width: 480px) {
 		// 	filter: blur(7px);
 		// }
@@ -128,9 +106,9 @@
 	// 	transition-duration: 700ms;
 	// }
 
-	img.artwork{
-		width: 100%;		
+	img.artwork{		
 		display: block;
+		width: 100%;
 	}
 }
 

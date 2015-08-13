@@ -1,27 +1,27 @@
 @import "global";
-div.now{
-	height: 100vh;
-	background-size: cover;
+div#now{
 	background-position: center center;
 	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100vh;
 
 	h1{
+		background-color: #fff;
+		left: 0;
+		opacity: 0.8;
 		
 		position: absolute;
-		left: 0;
 		top: 0;
 		width: 100%;
-		background-color: #fff;
-		opacity: 0.8;
 
 	}
 	p.copyright{
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		width: 100%;
-		text-align: right;
 		background-color: #fff;
+		bottom: 0;
+		left: 0;
 		opacity: 0.8;
+		position: absolute;
+		text-align: right;
+		width: 100%;
 	}
 }

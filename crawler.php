@@ -3,7 +3,7 @@
 	
 	$newLine = "<br />";
 	
-	require_once("functions.php");
+	require_once("partials/functions.php");
 	
 
 	
