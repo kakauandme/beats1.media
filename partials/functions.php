@@ -1,7 +1,7 @@
 <?php 
 
 
-require_once("variables.php");
+require_once("partials/variables.php");
 
 //$time_start = microtime(true);
 

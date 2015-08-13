@@ -19,7 +19,9 @@
 <?php /*Header */ ?>
 <?php require_once("partials/header.php"); ?>
 <?php /*CSS */ ?>
-<link rel="stylesheet" type="text/css" href="/css/now.css" media="all">
+	<style type="text/css" media="all">
+		<?php require_once("css/now.css"); ?>
+	</style>
 </head>
 <body id="body">
 	<?php 
