@@ -86,10 +86,12 @@ shuffle ( $topTracks);
 
 		var updateUrls = function(code){
 			createCookie("country",code, 7);
-			for(var i = 0; i < items.length; i++) {
-				var a = items[i].getElementsByTagName("a")[0];
-				a.href = a.href.replace("/us/","/"+code+"/");
-			};		
+
+			//TODO: not all links work, ajax call to iTunes API might help
+			// for(var i = 0; i < items.length; i++) {
+			// 	var a = items[i].getElementsByTagName("a")[0];
+			// 	a.href = a.href.replace("/us/","/"+code+"/");
+			// };		
 		};
 		function processGeolocation(response){
 			if(response){
