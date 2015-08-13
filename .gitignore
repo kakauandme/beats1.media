@@ -10,3 +10,5 @@ error_log
 *.map
 
 config.codekit
+
+*.css
