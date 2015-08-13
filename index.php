@@ -69,39 +69,63 @@ shuffle ( $topTracks);
 		for (var i = 0; i < items.length; i++) {
 				loadImage(items[i]);
 		};		
+		
+	
+
+		function removeLoading(item){
+			item.className = item.className.replace(" loading","");
+		}
 
 		function loadImage(item){
 			var width = item.offsetWidth;
+			var img = item.getElementsByTagName("img")[0];
+
+			if(img.complete) {
+     			item.className +=" complete";
+     		}else{
+	     		img.onload=function(){
+	     			if((' ' + item.className + ' ').indexOf(' complete ') === -1){
+	     				item.className +=" complete";
+	     			}
+		  			
+			  	};
+     		}				
+			
+
 
 			if(width > 100){
-				var img = item.getElementsByTagName("img")[0];
-										
-				img.src = "";
+					
 			  	var src = item.getAttribute("data-src");
-			  	img.onload=function(){
-	  				item.className+=" ready";
-			  	};
-			  	img.onerror=function(){
-			  		item.parentElement.removeChild(item);
-			  	};
-			  	if(src && width){
-			  		
-
+			  	
+			  	if(src && width){		  		
+			  		item.className+=" loading";		
 			  		var newWidth  = artworkSizes[artworkSizes.length-1];
 			  		for (var i = 0; i < artworkSizes.length; i++) {
 			  			if(width <= artworkSizes[i]){
 			  				newWidth = artworkSizes[i];
 			  				break;
 			  			}
-			  		};
-			  		img.src = src.replace("100x100", newWidth+"x"+newWidth);
-			  	}else{
-			  		item.parentElement.removeChild(item);
+			  		};	     		
+		     		
+				  	var tmp = new Image();
+				  	tmp.onload=function(){
+				  		img.src = tmp.src;
+			  			removeLoading(item);
+				  	};
+				  	tmp.onerror=function(){
+		     			removeLoading(item);
+				  	};
+			  		tmp.src = src.replace("100x100", newWidth+"x"+newWidth);
 			  	}
 
-			}else{
-				item.className+= " ready";
+			}else{//small image
+			
+     			img.onerror=function(){
+			  		item.parentElement.removeChild(item);
+			  	};
 			}
+
+			
 			
 			//detect country and swap link url  	
 		}

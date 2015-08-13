@@ -10,14 +10,12 @@
 }
 .grid-item{
 	width: 20%;
-	padding-bottom: 20%;
-	opacity: 0;
-	transition-property: opacity;
-	transition-timing-function: ease-out;
+	padding-bottom: 20%;	
 	overflow: hidden;
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
+
 
 	&:nth-child(4n+4){
 		width: 40%;
@@ -33,29 +31,26 @@
 		
 	}
 
-	&.ready{
-		opacity: 1;
-	}
-	transition-delay: 200ms;
-	transition-duration: 500ms;
-	&:nth-child(3n+1){
-		transition-delay: 100ms;
-		transition-duration: 900ms;
-	}
-	&:nth-child(3n+2){
+	background-color: white;
+	// transition-property: background-color;
+	// transition-timing-function: ease-out;
+	// transition-delay: 1000ms;
+	// transition-duration: 500ms;
 
-		transition-delay: 300ms;
-		transition-duration: 600ms;
+	// &:nth-child(3n+1){
+	// 	transition-delay: 1400ms;
+	// }
+	// &:nth-child(3n+2){
+	// 	transition-delay: 1100ms;
+	// }
+	// &:nth-child(3n+3){
+	// 	transition-delay: 1200ms;
+	// }
+	
+	&.complete{
+		background-color: black;
 	}
-	&:nth-child(3n+3){
-		transition-delay: 0ms;
-		transition-duration: 700ms;
-	}
-	.no-js &{
-		opacity: 1;
-		width: 25%;
-		padding-bottom: 25%;		
-	}
+	
 	
 	.badge{
 		position: absolute;
@@ -76,7 +71,51 @@
 		position: absolute;
 		width: 100%;
 		display: block;
+		opacity: 0;
+		// transition-property: opacity, filter;
+		// -webkit-transition-property: opacity, -webkit-filter;
+		// transition-timing-function: ease-out;
+		// transition-delay: 200ms;
+		// transition-duration: 500ms;
+		
 	}
+	.no-js &{
+		a.preview{
+			opacity: 1;
+		}
+		width: 25%;
+		padding-bottom: 25%;		
+	}
+	
+
+	&.complete a.preview{
+		opacity: 1;
+	}
+	&.loading a.preview{
+		filter: blur(3px);
+		@media all and (min-width: 480px) {
+			filter: blur(7px);
+		}
+		@media all and (min-width: 768px) {
+			filter: blur(15px);
+		}
+		
+	}
+	
+	// &:nth-child(3n+1) a.preview{
+	// 	transition-delay: 100ms;
+	// 	transition-duration: 900ms;
+	// }
+	// &:nth-child(3n+2) a.preview{
+
+	// 	transition-delay: 300ms;
+	// 	transition-duration: 600ms;
+	// }
+	// &:nth-child(3n+3) a.preview{
+	// 	transition-delay: 0ms;
+	// 	transition-duration: 700ms;
+	// }
+
 	img.artwork{
 		width: 100%;		
 		display: block;
