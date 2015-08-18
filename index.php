@@ -6,14 +6,23 @@ Mustache_Autoloader::register();
 $m = new Mustache_Engine;
 
 connect();
-$topTracks = getTopTracks(22);
 $lastTrack = getLastTrack();
+
+
+$topTracks = getTopTracks(22);
 disconnect();
-if(!$topTracks){
-	die("No records in DB");
-}
-$topTrackId = $topTracks[0]->trackId;
-shuffle ( $topTracks);
+
+
+$lastTrack->className=" now-playing";
+$lastTrack->title="Now playing: ";
+
+$topTracks[0]->className=" most-played";
+$topTracks[0]->title="Most played track: ";
+
+array_push($topTracks, $lastTrack);
+
+$shuffledTracks = $topTracks;
+shuffle ( $shuffledTracks);
 ?><!doctype html>
 <html lang="en" itemscope itemtype="http://schema.org/Website">
 <head>
@@ -29,22 +38,8 @@ shuffle ( $topTracks);
 </head>
 <body id="top" class="no-js">
 	<?php 
-	echo '<div id="grid">';
-		$cnt= count($topTracks);
-		$randomPos = rand(0, $cnt);
-		for ($i=0; $i < $cnt; $i++) { 
-			if($i== $randomPos){
-				$lastTrack->className=" now-playing";
-				$lastTrack->title="Now playing: ";
-				echo $m->render($templates["track"],$lastTrack);				
-			}
-			if($topTracks[$i]->trackId == $topTrackId){
-				$topTracks[$i]->className=" most-played";
-				$topTracks[$i]->title="Most played track: ";
-			}
-			echo $m->render($templates["track"],$topTracks[$i]);
-		}
-	echo '</div>';
+	echo $m->render($templates["topgrid"], array("tracks" => $shuffledTracks));
+	
 	require_once("partials/copy.php");
 	?>
 	<script>		
