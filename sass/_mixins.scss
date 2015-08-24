@@ -1,0 +1,16 @@
+@mixin bp($point) {
+	$bp-ipad: "(min-width: 768px)";
+	$bp-laptop: "(min-width: 1280px)";
+	$bp-desktop: "(min-width: 1600px)";
+
+	@if $point == ipad {
+		@media #{$bp-ipad} { @content; }
+	}
+	@else if $point == laptop {
+		@media #{$bp-laptop} { @content; }
+	}
+	@else if $point == desktop {
+		@media #{$bp-desktop} { @content; }
+	}
+
+}

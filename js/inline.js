@@ -77,11 +77,11 @@ var loadScript = function(src, callback, arg){
 	t.parentNode.insertBefore(s, t);
 	s.src = src; 
 };
+if(grid){
+	loadScript("https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js", layout, grid); 
+	var items = grid.children;
+	for(var i = 0; i < items.length; i++) {
+		updateImage(items[i]);
+	};
+}
 
-loadScript("https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js", layout, grid); 
-
-
-var items = grid.children;
-for(var i = 0; i < items.length; i++) {
-	updateImage(items[i]);
-};

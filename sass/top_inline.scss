@@ -1,13 +1,5 @@
 @import "global";
 
-
-#top{
-
-	p.copyright{
-		text-align: center;
-		width: 100%;
-	}
-}
 .grid-item{
 	display: inline-block;	
 	overflow: hidden;
@@ -27,17 +19,16 @@
 
 
 	&:nth-child(4n+4){
-		padding-bottom: 40%;
-		width: 40%;
+		height: 40vw;
+		width: 40vw;
 	}
 	&:nth-child(12n){
-		padding-bottom: 60%;
-		width: 60%;
+		height: 60vw;
+		width: 60vw;
 	}
 	&:nth-child(8){
-		padding-bottom: 80%;
-		width: 80%;
-		
+		height: 80vw;
+		width: 80vw;		
 	}
 
 	// &:nth-child(3n+1){

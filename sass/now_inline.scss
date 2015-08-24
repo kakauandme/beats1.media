@@ -5,23 +5,22 @@ div#now{
 	background-size: cover;
 	height: 100vh;
 
-	h1{
+	p,h1{
+		margin: 0;
+		padding: 1em;
 		background-color: #fff;
-		left: 0;
 		opacity: 0.8;
-		
+		left: 0;		
 		position: absolute;
-		top: 0;
 		width: 100%;
-
 	}
-	p.copyright{
-		background-color: #fff;
-		bottom: 0;
-		left: 0;
-		opacity: 0.8;
-		position: absolute;
+
+	h1{		
+		top: 0;
+	}
+	p{
+		
+		bottom: 0;		
 		text-align: right;
-		width: 100%;
 	}
 }

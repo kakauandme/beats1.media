@@ -32,7 +32,9 @@ function stripRandomChars($str){
 	return substr($str,$start, $finish - $start);
 }
 
-
+function replaceSpaces($str){
+	return preg_replace('/\s+/', '-', preg_replace('/[^a-z0-9\s]/', '', strtolower($str)));
+}
 function logText($str){
 
 	global $newLine;
@@ -67,6 +69,7 @@ function getLastTrack(){
 		if ($result->num_rows == 1) {
 
 			$lastRecord = $result->fetch_object();
+			$lastRecord->unique_tile = replaceSpaces($lastRecord->trackName .' '. $lastRecord->artistName);
 
 		}
 		$result->close();
@@ -84,6 +87,7 @@ function getLastMeta(){
 		if ($result->num_rows == 1) {
 
 			$lastRecord = $result->fetch_object();
+			
 
 		}
 		$result->close();
@@ -94,7 +98,7 @@ function getTopTracks($limit){
 
 	global $connection;	
 
-	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId,(SELECT trackId FROM plays ORDER BY date DESC LIMIT 1) c WHERE m.trackId <> c.trackId GROUP BY m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
+	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId,(SELECT trackId FROM plays ORDER BY date DESC LIMIT 1) c WHERE m.trackId <> c.trackId GROUP BY m.trackId, m.trackName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
 	//echo 	$sql ;
 	$topTracks = FALSE;
 
@@ -102,7 +106,10 @@ function getTopTracks($limit){
 
 		if ($result->num_rows > 0 ) {
 			$topTracks = array();
+			$i = 0;
 			while($obj = $result->fetch_object()) {
+				$obj->i = ++$i;
+				$obj->unique_tile =  replaceSpaces($obj->trackName .' '. $obj->artistName);
 		      array_push($topTracks,$obj); 
 		    }
 		

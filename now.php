@@ -20,7 +20,7 @@
 <?php require_once("partials/header.php"); ?>
 <?php /*CSS */ ?>
 	<style type="text/css" media="all">
-		<?php require_once("css/now.css"); ?>
+		<?php require_once("css/now_inline.css"); ?>
 	</style>
 </head>
 <body id="body">

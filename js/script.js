@@ -51,3 +51,62 @@ var country = readCookie("country");
 }else{
 	loadScript("http://ipinfo.io/?callback=processGeolocation"); 
 }
+
+document.getElementById("close").addEventListener("click", function(e){
+    body.className="";
+}, false);
+
+
+var tracks = document.querySelectorAll(".show-track");
+var selectedArtwork = document.getElementById("selected-artwork");
+
+var selectTrack = function(target){
+    
+    //selectedArtwork.src = "";
+    //selectedArtwork.className="";
+
+    target.className += " selected";
+   // var img = this.getElementsByTagName("img")[0];
+    var src = target.getAttribute("data-src");
+    var newWidth  = artworkSizes[artworkSizes.length-1];
+    for (var i = 0; i < artworkSizes.length; i++) {
+        if(selectedArtwork.offsetWidth <= artworkSizes[i]){
+            newWidth = artworkSizes[i];
+            break;
+        }
+    };      
+    
+    var tmp = new Image();
+    tmp.onload=function(){
+        selectedArtwork.src = tmp.src;
+        selectedArtwork.className="loaded";
+    };
+    tmp.src = src.replace("100x100", newWidth+"x"+newWidth);
+};
+
+for (var i = tracks.length - 1; i >= 0; i--) {
+    tracks[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        body.className="listing-open";
+        //alert(this.getAttribute("data-target-id"));
+        var selected = document.querySelector("tr.selected");
+        if(selected){
+            selected.className = selected.className.replace(" selected", "");
+        }
+        var _id = this.getAttribute("data-target-id");
+        window.location.hash = _id;
+        var target = document.getElementById("track-" + _id);
+        if(target){
+           selectTrack(target);
+        }
+    }, false);
+};
+if(window.location.hash.length > 1){
+   var target = document.getElementById("track-" + window.location.hash.substring(1));  
+   //alert(window.location.hash.substring(1));
+    if(target){
+        body.className="listing-open";
+        selectTrack(target);
+    }
+
+}

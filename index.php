@@ -19,9 +19,11 @@ $lastTrack->title="Now playing: ";
 $topTracks[0]->className=" most-played";
 $topTracks[0]->title="Most played track: ";
 
-array_push($topTracks, $lastTrack);
-
 $shuffledTracks = $topTracks;
+
+array_push($shuffledTracks, $lastTrack);
+
+
 shuffle ( $shuffledTracks);
 ?><!doctype html>
 <html lang="en" itemscope itemtype="http://schema.org/Website">
@@ -33,13 +35,13 @@ shuffle ( $shuffledTracks);
 	<?php require_once("partials/header.php"); ?>
 	<?php /*CSS */ ?>
 	<style type="text/css" media="all">
-		<?php require_once("css/inline.css"); ?>
+		<?php require_once("css/top_inline.css"); ?>
 	</style>
 </head>
 <body id="top" class="no-js">
 	<?php 
 	echo $m->render($templates["topgrid"], array("tracks" => $shuffledTracks));
-	
+	echo $m->render($templates["toplisting"], array("tracks" => $topTracks));
 	require_once("partials/copy.php");
 	?>
 	<script>		
