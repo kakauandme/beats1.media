@@ -7,29 +7,29 @@ stylesheet.media = 'all';
 document.getElementsByTagName('head')[0].appendChild(stylesheet);
 
 var createCookie = function(name,value,days) {
+    var expires = "";
     if (days) {
         var date = new Date();
         date.setTime(date.getTime()+(days*24*60*60*1000));
-        var expires = "; expires="+date.toGMTString();
+        expires = "; expires="+date.toGMTString();
     }
-    else var expires = "";
     document.cookie = name+"="+value+expires+"; path=/";
-}
+};
 
 var readCookie = function(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0)===' '){ c = c.substring(1,c.length);}
+        if (c.indexOf(nameEQ) === 0){ return c.substring(nameEQ.length,c.length);}
     }
     return null;
 };
 
-var eraseCookie = function(name) {
-    createCookie(name,"",-1);
-};
+// var eraseCookie = function(name) {
+//     createCookie(name,"",-1);
+// };
 
 
 var updateUrls = function(code){
@@ -44,6 +44,14 @@ function processGeolocation(response){
 	if(response){
 		updateUrls(response.country.toLowerCase());					
 	}
+}
+function easeInOut(currentTime, start, change, duration) {
+    currentTime /= duration / 2;
+    if (currentTime < 1) {
+        return change / 2 * currentTime * currentTime + start;
+    }
+    currentTime -= 1;
+    return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
 }
 
 function scrollTo(element, to, duration) {
@@ -65,17 +73,9 @@ function scrollTo(element, to, duration) {
     animateScroll(0);
 }
 
-function easeInOut(currentTime, start, change, duration) {
-    currentTime /= duration / 2;
-    if (currentTime < 1) {
-        return change / 2 * currentTime * currentTime + start;
-    }
-    currentTime -= 1;
-    return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
-}
 
 
-var lsiting = document.getElementById("listing");
+var listing = document.getElementById("listing");
 var tracks = document.querySelectorAll(".show-track");
 var selectedArtwork = document.getElementById("selected-artwork");
 var selectedTrack = document.getElementById("selected-track");
@@ -96,7 +96,7 @@ var selectTrack = function(target){
             newWidth = artworkSizes[i];
             break;
         }
-    };      
+    }     
     
     var tmp = new Image();
     tmp.onload=function(){
@@ -109,27 +109,16 @@ var selectTrack = function(target){
         scrollTo(listing, 0, 500);
     }
 };
-if(window.location.hash.length > 1){
-   var target = document.getElementById("track-" + window.location.hash.substring(1));  
-   //alert(window.location.hash.substring(1));
-    if(target){
-        body.className="listing-open";
-        selectTrack(target);
-    }
-}
-document.getElementById("close").addEventListener("click", function(e){
-    body.className="";
-}, false);
 
-for (var i = tracks.length - 1; i >= 0; i--) {
-    tracks[i].addEventListener('click', function(e) {
+
+var clickTrack = function(e) {
         
         if(this.tagName !== "TR"){
             e.preventDefault();
         }
         body.className="listing-open";
         //alert(this.getAttribute("data-target-id"));
-        var selected = lsiting.querySelector("tr.selected");
+        var selected = listing.querySelector("tr.selected");
         if(selected){
             selected.className = selected.className.replace(" selected", "");
         }
@@ -139,8 +128,22 @@ for (var i = tracks.length - 1; i >= 0; i--) {
         if(target){
            selectTrack(target);
         }
-    }, true);
-};  
+};
+if(window.location.hash.length > 1){
+   var target = document.getElementById("track-" + window.location.hash.substring(1));  
+   //alert(window.location.hash.substring(1));
+    if(target){
+        body.className="listing-open";
+        selectTrack(target);
+    }
+}
+document.getElementById("close").addEventListener("click", function(){
+    body.className="";
+}, false);
+
+for (var i = tracks.length - 1; i >= 0; i--) {
+    tracks[i].addEventListener('click', clickTrack, true);
+}
 
 
 var country = readCookie("country");
