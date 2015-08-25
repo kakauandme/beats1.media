@@ -106,6 +106,10 @@
 		// 	color: white;
 			margin: 0; 
 			line-height: 1;
+			text-align: center;
+			@include bp(ipad) {
+				text-align: left;
+			}
 	}
 	p{
 		margin: 0; 
@@ -114,9 +118,8 @@
 			padding: 1em;
 			//margin-top: -3em;
     		//line-height: 1;
-    		@include bp(ipad) {
-				text-align: center;
-			}
+    		text-align: center;
+    		
 			
 			//transform: translateY(-100%);
 			//background-color: rgba(255,255,255,0.9);

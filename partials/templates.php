@@ -19,7 +19,7 @@ $templates = array(
 					</span><span class="column list">
 						
 						<table>
-							<tr class="heading"><td colspan="5"><h1>Beats 1 Top Tracks</h1></td></tr>
+							<tr class="heading"><td colspan="5"><h1>'.$title.'</h1></td></tr>
 							{{# tracks }}
 								<tr id="track-{{unique_tile}}" class="list-item show-track" data-id="{{trackId}}" data-src= "{{artworkUrl100}}" data-plays="{{plays}}" data-target-id="{{unique_tile}}"  title="{{trackName}}  &mdash; {{artistName}}">
 									<td class="index"><p>{{i}}.</p></td>

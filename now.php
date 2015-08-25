@@ -1,4 +1,8 @@
 <?php
+
+	$title = "Now playing on Beats 1"; 
+	$description = "Curently playing on Beats 1 Radio by Apple Music";
+	
 	require_once("partials/functions.php");
 	require_once("partials/templates.php");
 	require_once("Mustache/Autoloader.php");
@@ -7,9 +11,9 @@
 	connect();
 	$lastTrack = getLastTrack();
 	disconnect();
-	if(!$lastTrack){
-		die("No records in DB");
-	}
+
+	
+
 ?><!doctype html>
 <html lang="en" itemscope itemtype="http://schema.org/Website">
 <head>

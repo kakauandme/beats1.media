@@ -1,4 +1,8 @@
 <?php
+
+$title = "Beats 1 Top Tracks"; 
+$description = "Most played songs on Beats 1 Radio by Apple Music";
+
 require_once("partials/functions.php");
 require_once("partials/templates.php");
 require_once("Mustache/Autoloader.php");
@@ -23,14 +27,11 @@ $shuffledTracks = $topTracks;
 
 //array_push($shuffledTracks, $lastTrack);
 
-
 shuffle ( $shuffledTracks);
+
 ?><!doctype html>
 <html lang="en" itemscope itemtype="http://schema.org/Website">
 <head>
-	<title itemprop="name">Beats 1 Top Tracks</title>
-	<?php /*SEO */ ?>
-	<meta name="description" content="Most played songs on Beats 1 Radio by Apple Music" itemprop="description" />
 	<?php /*Header */ ?>
 	<?php require_once("partials/header.php"); ?>
 	<?php /*CSS */ ?>

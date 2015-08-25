@@ -4,8 +4,8 @@
 require_once("partials/variables.php");
 
 //$time_start = microtime(true);
-
-
+$siteName = "Beats 1 Media";
+$baseURL = "http://" . $_SERVER["HTTP_HOST"];
 
 $connection = null;
 
