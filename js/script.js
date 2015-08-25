@@ -79,18 +79,16 @@ var lsiting = document.getElementById("listing");
 var tracks = document.querySelectorAll(".show-track");
 var selectedArtwork = document.getElementById("selected-artwork");
 var selectedTrack = document.getElementById("selected-track");
+var selectedLink = document.getElementById("selected-link");
 
 var selectTrack = function(target){
     var src = target.getAttribute("data-src");
-    target.className += " selected";
-    selectedTrack.textContent = target.title;
-    if(listing.scrollTop){
-        scrollTo(listing, 0, 500);
-    }
-     
-   
     selectedArtwork.src = src;
     selectedArtwork.className= "";
+    target.className += " selected";
+    selectedArtwork.alt =  selectedTrack.title = selectedLink.title =  selectedTrack.textContent = target.title;
+
+    selectedTrack.href = selectedLink.href= target.getElementsByTagName("a")[0].href;
 
     var newWidth  = artworkSizes[artworkSizes.length-1];
     for (var i = 0; i < artworkSizes.length; i++) {
@@ -106,6 +104,10 @@ var selectTrack = function(target){
         selectedArtwork.className = "loaded";
     };
     tmp.src = src.replace("100x100", newWidth+"x"+newWidth);
+
+    if(listing.scrollTop){
+        scrollTo(listing, 0, 500);
+    }
 };
 if(window.location.hash.length > 1){
    var target = document.getElementById("track-" + window.location.hash.substring(1));  
@@ -121,10 +123,13 @@ document.getElementById("close").addEventListener("click", function(e){
 
 for (var i = tracks.length - 1; i >= 0; i--) {
     tracks[i].addEventListener('click', function(e) {
-        e.preventDefault();
+        
+        if(this.tagName !== "TR"){
+            e.preventDefault();
+        }
         body.className="listing-open";
         //alert(this.getAttribute("data-target-id"));
-        var selected = document.querySelector("tr.selected");
+        var selected = lsiting.querySelector("tr.selected");
         if(selected){
             selected.className = selected.className.replace(" selected", "");
         }
@@ -134,7 +139,7 @@ for (var i = tracks.length - 1; i >= 0; i--) {
         if(target){
            selectTrack(target);
         }
-    }, false);
+    }, true);
 };  
 
 
