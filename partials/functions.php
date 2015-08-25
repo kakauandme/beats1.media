@@ -163,8 +163,8 @@ function insertMedia($data){
 			$data["collectionId"].','.
 			'"'.$data["collectionName"].'",'.
 			'"'.$data["previewUrl"].'",'.
-			'"'.$data["artworkUrl30"].'",'.
-			'"'.$data["artworkUrl60"].'",'.
+			// '"'.$data["artworkUrl30"].'",'.
+			// '"'.$data["artworkUrl60"].'",'.
 			'"'.$data["artworkUrl100"].'",'.
 			$data["trackPrice"].','.
 			'"'.date ("Y-m-d H:i:s", strtotime($data["releaseDate"])).'",'.

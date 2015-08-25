@@ -1,43 +1,5 @@
 @import "mixins";
 
-
-
-	p.copyright{
-		text-align: center;
-		width: 100%;
-		margin: 0;
-		padding: 1em;
-	}
-.grid-item{
-	.badge{
-		background-color: rgba(0,0,0,0.25);
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-size: 50% 50%;
-		height: 100%;
-		left: 0;
-		opacity: 0.5;
-		position: absolute;
-		top: 0;
-		width: 100%;
-		&:hover{
-			background-color: transparent;
-			opacity: 0.75;
-		}
-	}
-
-	&.now-playing{
-		.badge{			
-			background-image: url(../img/playing.svg);			
-		}
-	}
-	&.most-played{
-		.badge{			
-			background-image: url(../img/winner.svg);			
-		}
-	}
-}
-
 #listing{
 	//transform: translateY(100%);
 	//opacity: 1;
@@ -54,8 +16,9 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	overflow: scroll;
-	background-color: rgba(255,255,255,0.9);
+	overflow-y: scroll;
+	-webkit-overflow-scrolling:touch;
+	background-color: rgba(255,255,255,0.8);
 
 	@include bp(ipad) {
 	    padding:2em;
@@ -213,15 +176,28 @@
 }
 
 .listing-open{
-	overflow: hidden;
-	// #grid{
-	// 	filter: brightness(10%);
-	//     opacity: 1;
-	//     outline: 40px black solid;
-	// }
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: auto;
+	#grid{
+		filter: blur(3px);
+		transition-duration: 0;
+		transition-delay: 600ms;	
+		transition-property: filter;
+		-webkit-transition-property: -webkit-filter;
+	    //outline: 10px black solid;
+	    @include bp(ipad) {
+			filter: blur(5px);
+		}
+		@include bp(laptop) {
+			filter: blur(10px);
+		}
+		@include bp(desktop) {
+			filter: blur(15px);
+		}
+	}
 	#listing{
 		transform: translateY(0);
-		transition-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+		//transition-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
 		//opacity: 1;
 		//transition-timing-function: ease;
 	}
@@ -232,4 +208,42 @@
 	// }
 
 }  
+
+p.copyright{
+	text-align: center;
+	width: 100%;
+	margin: 0;
+	padding: 1em;
+}
+
+// .grid-item{
+// 	.badge{
+// 		background-color: rgba(0,0,0,0.25);
+// 		background-position: center center;
+// 		background-repeat: no-repeat;
+// 		background-size: 50% 50%;
+// 		height: 100%;
+// 		left: 0;
+// 		opacity: 0.5;
+// 		position: absolute;
+// 		top: 0;
+// 		width: 100%;
+// 		&:hover{
+// 			background-color: transparent;
+// 			opacity: 0.75;
+// 		}
+// 	}
+
+// 	&.now-playing{
+// 		.badge{			
+// 			background-image: url(../img/playing.svg);			
+// 		}
+// 	}
+// 	&.most-played{
+// 		.badge{			
+// 			background-image: url(../img/winner.svg);			
+// 		}
+// 	}
+// }
+
 
