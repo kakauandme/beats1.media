@@ -6,22 +6,22 @@ Mustache_Autoloader::register();
 $m = new Mustache_Engine;
 
 connect();
-$lastTrack = getLastTrack();
+//$lastTrack = getLastTrack();
 
 
-$topTracks = getTopTracks(22);
+$topTracks = getTopTracks(23);
 disconnect();
 
 
-$lastTrack->className=" now-playing";
-$lastTrack->title="Now playing: ";
+// $lastTrack->className=" now-playing";
+// $lastTrack->title="Now playing: ";
 
-$topTracks[0]->className=" most-played";
-$topTracks[0]->title="Most played track: ";
+// $topTracks[0]->className=" most-played";
+// $topTracks[0]->title="Most played track: ";
 
 $shuffledTracks = $topTracks;
 
-array_push($shuffledTracks, $lastTrack);
+//array_push($shuffledTracks, $lastTrack);
 
 
 shuffle ( $shuffledTracks);

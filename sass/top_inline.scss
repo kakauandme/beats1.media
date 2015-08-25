@@ -49,22 +49,26 @@
 
 	a.preview{
 		display: block;
-		opacity: 0;
+	
 		position: absolute;
-		// transition-delay: 200ms;
+		 
 		// -webkit-transition-property: opacity, -webkit-filter;
 		// transition-property: opacity, filter;
-		// transition-timing-function: ease-out;
+		opacity: 0;
+		transition-property: opacity;
+		transition-timing-function: ease-out;
+		transition-delay: 0;
+		transition-duration: 500ms;
 		width: 100%;
-		// transition-duration: 500ms
 		
 	}
 	.no-js &{
 		padding-bottom: 25%;
 		width: 25%;
+		height: auto;
 		a.preview{
 			opacity: 1;
-		}		
+		}	
 	}
 	
 
@@ -83,23 +87,33 @@
 		
 	}
 	
-	// &:nth-child(3n+1) a.preview{
-	// 	transition-delay: 100ms;
-	// 	transition-duration: 900ms;
-	// }
-	// &:nth-child(3n+2) a.preview{
+	&:nth-child(3n+1) a.preview{
+		
+		transition-duration: 400ms;
+	}
+	&:nth-child(3n+2) a.preview{
 
-	// 	transition-delay: 300ms;
-	// 	transition-duration: 600ms;
-	// }
-	// &:nth-child(3n+3) a.preview{
-	// 	transition-delay: 0ms;
-	// 	transition-duration: 700ms;
-	// }
+		
+		transition-duration: 300ms;
+	}
+	&:nth-child(3n+3) a.preview{
+
+		transition-duration: 200ms;
+	}
 
 	img.artwork{		
 		display: block;
 		width: 100%;
 	}
+}
+
+.no-js{
+	#listing{
+		display: none;
+	}
+}
+
+#listing{
+	transform: translateY(100%);
 }
 
