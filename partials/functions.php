@@ -98,7 +98,7 @@ function getTopTracks($limit){
 
 	global $connection;	
 
-	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId,(SELECT trackId FROM plays ORDER BY date DESC LIMIT 1) c WHERE m.trackId <> c.trackId GROUP BY m.trackId, m.trackName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
+	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY m.trackId, m.trackName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
 	//echo 	$sql ;
 	$topTracks = FALSE;
 
