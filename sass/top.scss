@@ -4,6 +4,21 @@
 	//transform: translateY(100%);
 	//opacity: 1;
 	
+
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	@include bp(ipad) {
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+	}
+	@include bp(laptop) {
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+	}
+	@include bp(desktop) {
+		backdrop-filter: blur(15px);
+		-webkit-backdrop-filter: blur(15px);
+	}
 	
 	transition-duration: 500ms;
 	

@@ -1,1 +1,1 @@
-<p class="copyright">&copy;<?php echo date("Y") . " " .$siteName; ?> by <a href="https://twitter.com/KaKaUandME" title="Kirill Kliavin on Twitter">@kakauandme</a></p>
+<p class="copyright">&copy;<?php echo date("Y") . " " .$siteName; ?> by <a href="https://twitter.com/KaKaUandME" title="Kirill Kliavin on Twitter" target="_blank">@kakauandme</a></p>

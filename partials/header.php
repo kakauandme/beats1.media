@@ -25,6 +25,7 @@
 <link rel="apple-touch-icon" sizes="144x144" href="/img/config/apple-touch-icon-144x144.png">
 <link rel="apple-touch-icon" sizes="152x152" href="/img/config/apple-touch-icon-152x152.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/img/config/apple-touch-icon-180x180.png">
+<link rel="mask-icon" href="/img/config/logo.svg" color="black">
 
 <?php /*Chrome & Android */ ?>
 <link rel="manifest" href="/manifest.json">
