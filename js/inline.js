@@ -57,7 +57,7 @@ var updateImage = function(item){
 	  	};
 	}
 };		
-
+var t = document.getElementsByTagName('script')[0];
 var loadScript = function(src, callback, arg){
 	var r = false;
 	var s = document.createElement('script');
@@ -72,8 +72,7 @@ var loadScript = function(src, callback, arg){
 				callback(arg);
 			}					
 		}
-	};
-	var t = document.getElementsByTagName('script')[0];
+	};	
 	t.parentNode.insertBefore(s, t);
 	s.src = src; 
 };

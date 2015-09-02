@@ -6,6 +6,15 @@ stylesheet.type = 'text/css';
 stylesheet.media = 'all';
 document.getElementsByTagName('head')[0].appendChild(stylesheet);
 
+var listing = document.getElementById("listing");
+var tracks = document.querySelectorAll(".show-track");
+var selectedArtwork = document.getElementById("selected-artwork");
+var selectedTrack = document.getElementById("selected-track-link");
+var selectedLink = document.getElementById("selected-link");
+
+
+
+
 var createCookie = function(name,value,days) {
     var expires = "";
     if (days) {
@@ -33,16 +42,41 @@ var readCookie = function(name) {
 
 
 var updateUrls = function(code){
-	createCookie("country",code, 7);
-	//TODO: not all links work, ajax call to iTunes API might help
-	// for(var i = 0; i < items.length; i++) {
-	// 	var a = items[i].getElementsByTagName("a")[0];
-	// 	a.href = a.href.replace("/us/","/"+code+"/");
-	// };		
+
+	createCookie("country",code, 30);
+    if(code !== "us"){
+        var links = listing.querySelectorAll("a.preview");
+        var storageSupport = (typeof(Storage) === "undefined");
+        for (var i = links.length - 1; i >= 0; i--) {
+            var id = links[i].getAttribute("data-target-id");
+            if(url = readCookie(id+"-"+code)){
+                createCookie(id+"-"+code, url, 14);
+                links[i].href= url;
+            }else{
+                var term = encodeURIComponent(links[i].getAttribute("data-artist") + " " + links[i].getAttribute("data-track"));
+                loadScript('http://itunes.apple.com/search?term='+ term +'&media=music&entity=song&limit=1&callback=processTrack&country='+ code); 
+            }            
+        }
+    }
+   	
 };
+
+function processTrack (response) {
+    if(response.resultCount == 1){
+        var track = response.results[0];
+        if(track.country !== "USA"){
+            var url = track.trackViewUrl;
+            var uniqueId = (track.trackName + " " + track.artistName).toLowerCase().replace(/[^a-z0-9\s]/gi, '').replace(/\s+/gi,'-');
+            createCookie(uniqueId+"-"+country, url, 14);
+            var element = document.getElementById("link-"+uniqueId);
+            element.href=url;
+        }
+    }
+}
 function processGeolocation(response){
 	if(response){
-		updateUrls(response.country.toLowerCase());					
+        country = response.country.toLowerCase();
+		updateUrls(country);					
 	}
 }
 function easeInOut(currentTime, start, change, duration) {
@@ -73,13 +107,6 @@ function scrollTo(element, to, duration) {
     animateScroll(0);
 }
 
-
-
-var listing = document.getElementById("listing");
-var tracks = document.querySelectorAll(".show-track");
-var selectedArtwork = document.getElementById("selected-artwork");
-var selectedTrack = document.getElementById("selected-track");
-var selectedLink = document.getElementById("selected-link");
 
 var selectTrack = function(target){
     var src = target.getAttribute("data-src");

@@ -69,7 +69,7 @@ function getLastTrack(){
 		if ($result->num_rows == 1) {
 
 			$lastRecord = $result->fetch_object();
-			$lastRecord->unique_tile = replaceSpaces($lastRecord->trackName .' '. $lastRecord->artistName);
+			$lastRecord->unique_title = replaceSpaces($lastRecord->trackName .' '. $lastRecord->artistName);
 
 		}
 		$result->close();
@@ -109,7 +109,7 @@ function getTopTracks($limit){
 			$i = 0;
 			while($obj = $result->fetch_object()) {
 				$obj->i = ++$i;
-				$obj->unique_tile =  replaceSpaces($obj->trackName .' '. $obj->artistName);
+				$obj->unique_title =  replaceSpaces($obj->trackName .' '. $obj->artistName);
 		      array_push($topTracks,$obj); 
 		    }
 		

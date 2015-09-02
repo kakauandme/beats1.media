@@ -19,4 +19,4 @@
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
-	$dbname = "beats1.media";
+	$dbname = "beats1_media";
