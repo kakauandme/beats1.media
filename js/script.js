@@ -1,6 +1,6 @@
 //CSS
 var stylesheet = document.createElement('link');
-stylesheet.href = '/css/top.css';
+stylesheet.href = '/css/top.'+cacheBuster+'.css';
 stylesheet.rel = 'stylesheet';
 stylesheet.type = 'text/css';
 stylesheet.media = 'all';

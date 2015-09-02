@@ -1,5 +1,5 @@
 <?php
-
+$cacheBuster = 1;
 $title = "Beats 1 Top Tracks"; 
 $description = "Most played songs on Beats 1 Radio by Apple Music";
 
@@ -46,9 +46,11 @@ shuffle ( $shuffledTracks);
 	require_once("partials/copy.php");
 	?>
 	<script>		
-		<?php require_once("js/inline-min.js");	?>
+		<?php require_once("js/inline-min.js");
+		echo "var cacheBuster = '". $cacheBuster . "';";
+		?>
 	</script>
-	<script type="text/javascript" async src="js/script-min.js"></script>
+	<script type="text/javascript" async src="js/script-min.<?php echo $cacheBuster; ?>.js"></script>
 	<?php /*Footer */ ?>
 	<?php require_once("partials/footer.php"); ?>
 </body>

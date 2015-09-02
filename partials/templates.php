@@ -14,8 +14,8 @@ $templates = array(
 'toplisting' => '<div id="listing">
 					<a href="#" id="close" title="Hide">▼</a>
 					<span class="column details">
-						<a id="selected-link" href="#"><img id="selected-artwork" src="" width="100%"/></a>
-						<p id="selected-track"><a id="selected-track-link" href="#">Hello - world</a></p>
+						<a target="_blank" id="selected-link" href="#"><img id="selected-artwork" src="" width="100%"/></a>
+						<p id="selected-track"><a target="_blank" id="selected-track-link" href="#">Hello - world</a></p>
 					</span><span class="column list">
 						
 						<table>
