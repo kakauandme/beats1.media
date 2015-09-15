@@ -5,20 +5,8 @@
 	//opacity: 1;
 	
 
-	backdrop-filter: blur(3px);
-	-webkit-backdrop-filter: blur(3px);
-	@include bp(ipad) {
-		backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
-	}
-	@include bp(laptop) {
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-	}
-	@include bp(desktop) {
-		backdrop-filter: blur(15px);
-		-webkit-backdrop-filter: blur(15px);
-	}
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
 	
 	transition-duration: 500ms;
 	
@@ -195,21 +183,12 @@
 	overflow: hidden;
 	//-webkit-overflow-scrolling: auto;
 	#grid{
-		filter: blur(3px);
+		filter: blur(15px); //legacy for backdrop-filter
 		transition-duration: 0;
 		transition-delay: 600ms;	
 		transition-property: filter;
 		-webkit-transition-property: -webkit-filter;
 	    //outline: 10px black solid;
-	    @include bp(ipad) {
-			filter: blur(5px);
-		}
-		@include bp(laptop) {
-			filter: blur(10px);
-		}
-		@include bp(desktop) {
-			filter: blur(15px);
-		}
 	}
 	#listing{
 		transform: translateY(0);

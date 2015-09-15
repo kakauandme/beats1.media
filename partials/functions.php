@@ -53,7 +53,7 @@ function connect(){
 	$connection = new mysqli($servername, $username, $password, $dbname);
 	// Check connection
 	if ($connection->connect_error) {
-	    die("MySQL connection failed: " . $conn->connect_error);
+	    die("MySQL connection failed: " . $connection->connect_error);
 	} 
 }
 

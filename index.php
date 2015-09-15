@@ -1,5 +1,5 @@
 <?php
-$cacheBuster = 1;
+$cacheBuster = 2;
 $title = "Beats 1 Top Tracks"; 
 $description = "Most played songs on Beats 1 Radio by Apple Music";
 
