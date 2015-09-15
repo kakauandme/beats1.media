@@ -8,11 +8,12 @@ div#now{
 	p,h1{
 		margin: 0;
 		padding: 1em;
-		background-color: #fff;
-		opacity: 0.8;
+		background-color: rgba(255,255,255,0.66);
 		left: 0;		
 		position: absolute;
 		width: 100%;
+		backdrop-filter: blur(15px);
+		-webkit-backdrop-filter: blur(15px);
 	}
 
 	h1{		
