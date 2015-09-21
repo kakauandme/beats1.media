@@ -1,6 +1,7 @@
 <?php
-$title = "Recent Hits on Beats 1"; 
-$description = "Most played recent songs on Beats 1 Radio by Apple Music";
+
+$title = "Top 100 Tracks on Beats 1"; 
+$description = "Top 100 most played songs played on Beats 1 Radio by Apple Music";
 
 require_once("partials/functions.php");
 require_once("partials/templates.php");
@@ -10,7 +11,7 @@ $m = new Mustache_Engine;
 
 connect();
 //$lastTrack = getLastTrack();
-$topTracks = getTopTracks(16,1);
+$topTracks = getTopTracks(100, 0);
 disconnect();
 
 
@@ -24,7 +25,7 @@ $shuffledTracks = $topTracks;
 
 //array_push($shuffledTracks, $lastTrack);
 
-shuffle ( $shuffledTracks);
+//shuffle ( $shuffledTracks);
 
 ?><!doctype html>
 <html lang="en" itemscope itemtype="http://schema.org/Website">
@@ -39,7 +40,7 @@ shuffle ( $shuffledTracks);
 <?php flush(); ?>
 <body id="top" class="no-js">
 	<?php 
-	echo $m->render($templates["topgrid"], array("tracks" => $shuffledTracks));
+	echo $m->render($templates["top100grid"], array("tracks" => $shuffledTracks));
 	echo $m->render($templates["toplisting"], array("tracks" => $topTracks));
 	require_once("partials/copy.php");
 	?>

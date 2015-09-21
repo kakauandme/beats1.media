@@ -1,1 +1,184 @@
-function processTrack(e){if(1==e.resultCount){var t=e.results[0];if("USA"!==t.country){var r=t.trackViewUrl,a=(t.trackName+" "+t.artistName).toLowerCase().replace(/[^a-z0-9\s]/gi,"").replace(/\s+/gi,"-");createCookie(a+"-"+country,r,14);var c=document.getElementById("link-"+a);c.href=r}}}function processGeolocation(e){e&&(country=e.country.toLowerCase(),updateUrls(country))}function easeInOut(e,t,r,a){return e/=a/2,1>e?r/2*e*e+t:(e-=1,-r/2*(e*(e-2)-1)+t)}function scrollTo(e,t,r){var a=e.scrollTop,c=t-a,o=20,s=function(t){t+=o;var l=easeInOut(t,a,c,r);e.scrollTop=l,r>t&&setTimeout(function(){s(t)},o)};s(0)}var stylesheet=document.createElement("link");stylesheet.href="/css/top."+cacheBuster+".css",stylesheet.rel="stylesheet",stylesheet.type="text/css",stylesheet.media="all",document.getElementsByTagName("head")[0].appendChild(stylesheet);var listing=document.getElementById("listing"),tracks=document.querySelectorAll(".show-track"),selectedArtwork=document.getElementById("selected-artwork"),selectedTrack=document.getElementById("selected-track-link"),selectedLink=document.getElementById("selected-link"),createCookie=function(e,t,r){var a="";if(r){var c=new Date;c.setTime(c.getTime()+24*r*60*60*1e3),a="; expires="+c.toGMTString()}document.cookie=e+"="+t+a+"; path=/"},readCookie=function(e){for(var t=e+"=",r=document.cookie.split(";"),a=0;a<r.length;a++){for(var c=r[a];" "===c.charAt(0);)c=c.substring(1,c.length);if(0===c.indexOf(t))return c.substring(t.length,c.length)}return null},updateUrls=function(e){if(createCookie("country",e,30),"us"!==e)for(var t=listing.querySelectorAll("a.preview"),r="undefined"==typeof Storage,a=t.length-1;a>=0;a--){var c=t[a].getAttribute("data-target-id");if(url=readCookie(c+"-"+e))createCookie(c+"-"+e,url,14),t[a].href=url;else{var o=encodeURIComponent(t[a].getAttribute("data-artist")+" "+t[a].getAttribute("data-track"));loadScript("http://itunes.apple.com/search?term="+o+"&media=music&entity=song&limit=1&callback=processTrack&country="+e)}}},selectTrack=function(e){var t=e.getAttribute("data-src");selectedArtwork.src=t,selectedArtwork.className="",e.className+=" selected",selectedArtwork.alt=selectedTrack.title=selectedLink.title=selectedTrack.textContent=e.title,selectedTrack.href=selectedLink.href=e.getElementsByTagName("a")[0].href;for(var r=artworkSizes[artworkSizes.length-1],a=0;a<artworkSizes.length;a++)if(selectedArtwork.offsetWidth<=artworkSizes[a]){r=artworkSizes[a];break}var c=new Image;c.onload=function(){selectedArtwork.src=c.src,selectedArtwork.className="loaded"},c.src=t.replace("100x100",r+"x"+r),listing.scrollTop&&scrollTo(listing,0,500)},clickTrack=function(e){"TR"!==this.tagName&&e.preventDefault(),body.className="listing-open";var t=listing.querySelector("tr.selected");t&&(t.className=t.className.replace(" selected",""));var r=this.getAttribute("data-target-id");window.location.hash=r;var a=document.getElementById("track-"+r);a&&selectTrack(a)};if(window.location.hash.length>1){var target=document.getElementById("track-"+window.location.hash.substring(1));target&&(body.className="listing-open",selectTrack(target))}document.getElementById("close").addEventListener("click",function(){body.className=""},!1);for(var i=tracks.length-1;i>=0;i--)tracks[i].addEventListener("click",clickTrack,!0);var country=readCookie("country");country?updateUrls(country):loadScript("http://ipinfo.io/?callback=processGeolocation");
+//CSS
+var stylesheet = document.createElement('link');
+stylesheet.href = '/css/top.'+cacheBuster+'.css';
+stylesheet.rel = 'stylesheet';
+stylesheet.type = 'text/css';
+stylesheet.media = 'all';
+document.getElementsByTagName('head')[0].appendChild(stylesheet);
+
+var listing = document.getElementById("listing");
+var tracks = document.querySelectorAll(".show-track");
+var selectedArtwork = document.getElementById("selected-artwork");
+var selectedTrack = document.getElementById("selected-track-link");
+var selectedLink = document.getElementById("selected-link");
+
+
+
+
+var createCookie = function(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        expires = "; expires="+date.toGMTString();
+    }
+    document.cookie = name+"="+value+expires+"; path=/";
+};
+
+var readCookie = function(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)===' '){ c = c.substring(1,c.length);}
+        if (c.indexOf(nameEQ) === 0){ return c.substring(nameEQ.length,c.length);}
+    }
+    return null;
+};
+
+// var eraseCookie = function(name) {
+//     createCookie(name,"",-1);
+// };
+
+
+var updateUrls = function(code){
+
+	createCookie("country",code, 30);
+    if(code !== "us"){
+        var links = listing.querySelectorAll("a.preview");
+        var storageSupport = (typeof(Storage) === "undefined");
+        for (var i = links.length - 1; i >= 0; i--) {
+            var id = links[i].getAttribute("data-target-id");
+            if(url = readCookie(id+"-"+code)){
+                createCookie(id+"-"+code, url, 14);
+                links[i].href= url;
+            }else{
+                var term = encodeURIComponent(links[i].getAttribute("data-artist") + " " + links[i].getAttribute("data-track"));
+                loadScript('http://itunes.apple.com/search?term='+ term +'&media=music&entity=song&limit=1&callback=processTrack&country='+ code); 
+            }            
+        }
+    }
+   	
+};
+
+function processTrack (response) {
+    if(response.resultCount == 1){
+        var track = response.results[0];
+        if(track.country !== "USA"){
+            var url = track.trackViewUrl;
+            var uniqueId = (track.trackName + " " + track.artistName).toLowerCase().replace(/[^a-z0-9\s]/gi, '').replace(/\s+/gi,'-');
+          //  console.log(uniqueId);
+            createCookie(uniqueId+"-"+country, url, 14);
+            if(element = document.getElementById("link-"+uniqueId)){
+                element.href=url;
+            }
+        }
+    }
+}
+function processGeolocation(response){
+	if(response){
+        country = response.country.toLowerCase();
+		updateUrls(country);					
+	}
+}
+function easeInOut(currentTime, start, change, duration) {
+    currentTime /= duration / 2;
+    if (currentTime < 1) {
+        return change / 2 * currentTime * currentTime + start;
+    }
+    currentTime -= 1;
+    return -change / 2 * (currentTime * (currentTime - 2) - 1) + start;
+}
+
+function scrollTo(element, to, duration) {
+    var start = element.scrollTop,
+        change = to - start,
+        increment = 20;
+
+    var animateScroll = function(elapsedTime) {        
+        elapsedTime += increment;
+        var position = easeInOut(elapsedTime, start, change, duration);                        
+        element.scrollTop = position; 
+        if (elapsedTime < duration) {
+            setTimeout(function() {
+                animateScroll(elapsedTime);
+            }, increment);
+        }
+    };
+
+    animateScroll(0);
+}
+
+
+var selectTrack = function(target){
+    var src = target.getAttribute("data-src");
+    selectedArtwork.src = src;
+    selectedArtwork.className= "";
+    target.className += " selected";
+    selectedArtwork.alt =  selectedTrack.title = selectedLink.title =  selectedTrack.textContent = target.title;
+
+    selectedTrack.href = selectedLink.href= target.getElementsByTagName("a")[0].href;
+
+    var newWidth  = artworkSizes[artworkSizes.length-1];
+    for (var i = 0; i < artworkSizes.length; i++) {
+        if(selectedArtwork.offsetWidth <= artworkSizes[i]){
+            newWidth = artworkSizes[i];
+            break;
+        }
+    }     
+    
+    var tmp = new Image();
+    tmp.onload=function(){
+        selectedArtwork.src = tmp.src;
+        selectedArtwork.className = "loaded";
+    };
+    tmp.src = src.replace("100x100", newWidth+"x"+newWidth);
+
+    if(listing.scrollTop){
+        scrollTo(listing, 0, 500);
+    }
+};
+
+
+var clickTrack = function(e) {
+        
+        if(this.tagName !== "TR"){
+            e.preventDefault();
+        }
+        body.className="listing-open";
+        //alert(this.getAttribute("data-target-id"));
+        var selected = listing.querySelector("tr.selected");
+        if(selected){
+            selected.className = selected.className.replace(" selected", "");
+        }
+        var _id = this.getAttribute("data-target-id");
+        window.location.hash = _id;
+        var target = document.getElementById("track-" + _id);
+        if(target){
+           selectTrack(target);
+        }
+};
+if(window.location.hash.length > 1){
+   var target = document.getElementById("track-" + window.location.hash.substring(1));  
+   //alert(window.location.hash.substring(1));
+    if(target){
+        body.className="listing-open";
+        selectTrack(target);
+    }
+}
+document.getElementById("close").addEventListener("click", function(){
+    body.className="";
+}, false);
+
+for (var i = tracks.length - 1; i >= 0; i--) {
+    tracks[i].addEventListener('click', clickTrack, true);
+}
+
+
+var country = readCookie("country");
+if(country){
+    updateUrls(country);
+}else{
+    loadScript("http://ipinfo.io/?callback=processGeolocation"); 
+}
+

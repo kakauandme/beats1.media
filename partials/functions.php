@@ -94,11 +94,17 @@ function getLastMeta(){
 	}
 	return $lastRecord;
 }
-function getTopTracks($limit){
+function getTopTracks($limit, $limitInWeeks){
 
 	global $connection;	
 
-	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY m.trackId, m.trackName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
+	
+	$timeLimit = "";
+	if($limitInWeeks){
+		$timeLimit = " WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL " . $limitInWeeks . " WEEK) ";
+	}
+
+	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId ". $timeLimit ." GROUP BY m.trackId, m.trackName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
 	//echo 	$sql ;
 	$topTracks = FALSE;
 

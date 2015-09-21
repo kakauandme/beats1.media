@@ -12,3 +12,4 @@ error_log
 config.codekit
 
 css/*
+*-min.js

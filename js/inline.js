@@ -1,5 +1,6 @@
 var body = document.getElementById("top"); body.className = ""; //remove no-js
 var grid = document.getElementById("grid");
+var top100grid = document.getElementById("top100grid");
 
 var artworkSizes = [200,400,600,1200,1500];
 
@@ -76,11 +77,12 @@ var loadScript = function(src, callback, arg){
 	t.parentNode.insertBefore(s, t);
 	s.src = src; 
 };
-if(grid){
-	loadScript("https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js", layout, grid); 
-	var items = grid.children;
+if(grid || top100grid){
+	if(grid){
+		loadScript("https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js", layout, grid); 
+	}
+	var items = grid?grid.children:top100grid.children;
 	for(var i = 0; i < items.length; i++) {
 		updateImage(items[i]);
 	};
 }
-

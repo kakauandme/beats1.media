@@ -1,3 +1,4 @@
+@import "mixins";
 *{
   box-sizing: border-box;
 }
@@ -20,4 +21,23 @@ a{
 }
 h1{
 	font-weight: 200;
+}
+p.footer{
+	text-align: left;
+	width: 100%;
+	margin: 0;
+	padding: 1em;
+	.info{
+		&:before{
+			content: " | ";
+		}
+		@include bp(ipad) {	  
+			float: right;
+			&:before{
+				content: "";
+			}
+
+		}
+	}	
+	
 }

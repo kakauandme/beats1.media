@@ -67,9 +67,11 @@ function processTrack (response) {
         if(track.country !== "USA"){
             var url = track.trackViewUrl;
             var uniqueId = (track.trackName + " " + track.artistName).toLowerCase().replace(/[^a-z0-9\s]/gi, '').replace(/\s+/gi,'-');
+          //  console.log(uniqueId);
             createCookie(uniqueId+"-"+country, url, 14);
-            var element = document.getElementById("link-"+uniqueId);
-            element.href=url;
+            if(element = document.getElementById("link-"+uniqueId)){
+                element.href=url;
+            }
         }
     }
 }

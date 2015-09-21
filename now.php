@@ -27,6 +27,7 @@
 		<?php require_once("css/now_inline.css"); ?>
 	</style>
 </head>
+<?php flush(); ?>
 <body id="body">
 	<?php 
 		$lastTrack->artworkUrl = str_replace("100x100", "1500x1500", $lastTrack->artworkUrl100);
