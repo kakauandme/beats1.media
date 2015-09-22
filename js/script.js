@@ -44,16 +44,14 @@ var readCookie = function(name) {
 var updateUrls = function(code){
 
 	createCookie("country",code, 30);
-    if(code !== "us"){
+    if(code !== "us" && typeof(Storage) !== "undefined"){
         var links = listing.querySelectorAll("a.preview");
-        var storageSupport = (typeof(Storage) === "undefined");
         for (var i = links.length - 1; i >= 0; i--) {
             var id = links[i].getAttribute("data-target-id");
-            if(url = readCookie(id+"-"+code)){
-                createCookie(id+"-"+code, url, 14);
+            if(url = localStorage.getItem(id+"-"+code)){
                 links[i].href= url;
             }else{
-                var term = encodeURIComponent(links[i].getAttribute("data-artist") + " " + links[i].getAttribute("data-track"));
+                var term = encodeURIComponent(links[i].getAttribute("data-artist") + " " + links[i].getAttribute("data-album") + " " + links[i].getAttribute("data-track"));
                 loadScript('http://itunes.apple.com/search?term='+ term +'&media=music&entity=song&limit=1&callback=processTrack&country='+ code); 
             }            
         }
@@ -68,9 +66,17 @@ function processTrack (response) {
             var url = track.trackViewUrl;
             var uniqueId = (track.trackName + " " + track.artistName).toLowerCase().replace(/[^a-z0-9\s]/gi, '').replace(/\s+/gi,'-');
           //  console.log(uniqueId);
-            createCookie(uniqueId+"-"+country, url, 14);
+            try{
+               localStorage.setItem(uniqueId+"-"+country, url);
+            }catch(e){
+                console.error("Localstorage error: " + e);
+                localStorage.clear();
+            }
+            
             if(element = document.getElementById("link-"+uniqueId)){
                 element.href=url;
+            }else{
+                console.error(uniqueId + " track doesn't match");
             }
         }
     }

@@ -62,20 +62,7 @@
 		width: 100%;
 		
 	}
-	#top100grid &{	
-		width: 25vw;
-		height: 25vw;
-		padding-bottom: 0;
-		@include bp(ipad) {
-			width: 20vw;
-			height: 20vw;
-		}
-		@include bp(desktop) {
-			width: 10vw;
-			height: 10vw;
-		}
 
-	}
 	.no-js &{
 		padding-bottom: 25%;
 		width: 25%;

@@ -39,7 +39,7 @@ shuffle ( $shuffledTracks);
 <?php flush(); ?>
 <body id="top" class="no-js">
 	<?php 
-	echo $m->render($templates["topgrid"], array("tracks" => $shuffledTracks));
+	echo $m->render($templates["topgrid"], array("tracks" => $shuffledTracks, "id"=>"grid"));
 	echo $m->render($templates["toplisting"], array("tracks" => $topTracks));
 	require_once("partials/copy.php");
 	?>

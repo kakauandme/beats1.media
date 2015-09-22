@@ -21,7 +21,6 @@ disconnect();
 // $topTracks[0]->className=" most-played";
 // $topTracks[0]->title="Most played track: ";
 
-$shuffledTracks = $topTracks;
 
 //array_push($shuffledTracks, $lastTrack);
 
@@ -34,14 +33,15 @@ $shuffledTracks = $topTracks;
 	<?php require_once("partials/header.php"); ?>
 	<?php /*CSS */ ?>
 	<style type="text/css" media="all">
-		<?php require_once("css/top_inline.css"); ?>
+		<?php require_once("css/top100_inline.css"); ?>
 	</style>
 </head>
 <?php flush(); ?>
-<body id="top" class="no-js">
+<body id="top100" class="no-js">
 	<?php 
-	echo $m->render($templates["top100grid"], array("tracks" => $shuffledTracks));
+	echo $m->render($templates["topgrid"], array("tracks" => $topTracks, "id"=>"top100grid"));
 	echo $m->render($templates["toplisting"], array("tracks" => $topTracks));
+	echo $m->render($templates["topgraph"], array("tracks" => $topTracks));
 	require_once("partials/copy.php");
 	?>
 	<script>		

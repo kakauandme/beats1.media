@@ -1,0 +1,78 @@
+@import "global";
+
+.grid-item{
+	display: inline-block;	
+	overflow: hidden;
+	position: relative;
+	width: 25vw;
+	height: 25vw;
+	@include bp(ipad) {
+		width: 20vw;
+		height: 20vw;
+	}
+	@include bp(desktop) {
+		width: 10vw;
+		height: 10vw;
+	}
+	vertical-align: top;	
+
+	a.preview{
+		display: block;
+	
+		position: absolute;
+		opacity: 1;
+		width: 100%;
+		
+	}
+	
+	img.artwork{		
+		display: block;
+		width: 100%;
+	}
+}
+
+
+#listing{
+	transform: translateY(120%);
+}
+
+#top100{
+	height: 100vh;
+	overflow: hidden;
+
+	#top100grid{
+		outline: 15px solid black;
+		filter: blur(15px); //legacy for backdrop-filter
+	}
+
+
+	#graph{
+		backdrop-filter: blur(15px);
+	    -webkit-backdrop-filter: blur(15px);
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    height: 100%;
+	    width: 100%;
+	    background-color: rgba(255,255,255,0.66);
+	    padding: 1em;
+	}
+	&.no-js{
+		height: auto;
+		overflow: inherit;
+		#top100grid{
+			filter: none; //legacy for backdrop-filter
+			outline-width: 0;
+		}
+		#listing, #graph{
+			display: none;
+		}
+	}
+	h1{
+		margin: 0;
+		padding: 0;
+	}
+	
+
+}
+

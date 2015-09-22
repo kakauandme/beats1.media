@@ -182,7 +182,7 @@
 .listing-open{
 	overflow: hidden;
 	//-webkit-overflow-scrolling: auto;
-	#grid{
+	#grid, #top100grid{
 		filter: blur(15px); //legacy for backdrop-filter
 		transition-duration: 0;
 		transition-delay: 600ms;	
@@ -203,8 +203,19 @@
 	// }
 
 }  
-
-
+#top100{
+	
+	#container{
+			outline: 1px solid red;
+			height: 90%;
+	}
+	
+	p.footer{
+		position: absolute;
+		bottom: 0;		
+		
+	}
+}
 
 // .grid-item{
 // 	.badge{

@@ -7,6 +7,26 @@ require_once("partials/variables.php");
 $siteName = "Beats 1 Media";
 $baseURL = "http://" . $_SERVER["HTTP_HOST"];
 
+
+$nav = [];
+
+$nav[0]  = new stdClass();
+$nav[0]->href="/";
+$nav[0]->title="Recent Hits on Beats 1";
+$nav[0]->text="Recent Hits";
+
+$nav[1]  = new stdClass();
+$nav[1]->href="/now";
+$nav[1]->title="Now playing on Beats 1";
+$nav[1]->text="Now playing";
+
+
+
+// $nav[1]  = new stdClass();
+// $nav[1]->href="/top100";
+// $nav[1]->title="Top 100 Tracks on Beats 1";
+// $nav[1]->text="Top 100";
+
 $connection = null;
 
 function stripRandomChars($str){
@@ -104,7 +124,7 @@ function getTopTracks($limit, $limitInWeeks){
 		$timeLimit = " WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL " . $limitInWeeks . " WEEK) ";
 	}
 
-	$sql = "SELECT m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId ". $timeLimit ." GROUP BY m.trackId, m.trackName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
+	$sql = "SELECT m.trackId, m.trackName, m.collectionName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId ". $timeLimit ." GROUP BY m.trackId, m.trackName, m.collectionName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
 	//echo 	$sql ;
 	$topTracks = FALSE;
 
