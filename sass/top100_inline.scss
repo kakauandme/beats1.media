@@ -1,5 +1,12 @@
 @import "global";
 
+
+
+html{
+	height: 100%;
+	overflow: hidden;
+}
+
 .grid-item{
 	display: inline-block;	
 	overflow: hidden;

@@ -1,5 +1,5 @@
 <?php 
-	$cacheBuster = 3;
+
 	$currentFolderPath  =  getcwd() . "/";
 
 	$mediaPath = 'http://itsliveradiobackup.apple.com/streams/hub02/session02/64k/';

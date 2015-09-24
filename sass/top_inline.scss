@@ -1,5 +1,9 @@
 @import "global";
 
+p#footer{
+		position: relative;
+}
+
 .grid-item{
 	display: inline-block;	
 	overflow: hidden;

@@ -212,7 +212,7 @@ var svg = svg || {};
 
 global.drawD3 = function(){
     //console.log("Drawing up D3");
-   
+    svg.pad = dom.title.offsetTop;
     svg.w = dom.graph.offsetWidth -  (svg.pad*2);
     svg.h = dom.graph.offsetHeight - dom.title.offsetHeight - dom.footer.offsetHeight - (svg.pad*2);
     svg.radius =  Math.max(Math.min(Math.min(svg.w, svg.h)/10, 50), 25);
@@ -251,8 +251,8 @@ global.drawD3 = function(){
     svg.legend.selectAll("circle").attr("cx", svg.w -  svg.radius - 9).attr("cy", svg.radius);
 
 
-    svg.xLabel.attr("x", svg.w - svg.radius).attr("y", svg.h - svg.pad);
-    svg.yLabel.attr("x", - svg.radius);
+    svg.xLabel.attr("x", svg.w - svg.radius).attr("y", svg.h - Math.max(svg.pad, 14));
+    svg.yLabel.attr("x", - svg.radius).attr("y", svg.pad);
 
     svg.circles.attr("cx", function (d) { return svg.x(+d[svg.xKey]); })
                 .attr("cy", function (d) { return svg.y(+d[svg.yKey]); })
@@ -387,7 +387,6 @@ global.setupD3 = function(container){
                 .attr("transform", "rotate(-90)")
                 .attr("dy", ".35em")
                 .style("text-anchor", "end")
-                .attr("y", svg.pad)
                 .text("amount of plays");
     global.drawD3();
     window.addEventListener("resize",  global.drawD3);

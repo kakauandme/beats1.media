@@ -1,14 +1,15 @@
 @import "mixins";
+.grid-item{
 
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+}
 
 #top{
 	
 
-	p#footer{
-		position: relative;
-	}
 	&.listing-open{
-		//overflow: hidden;
+		overflow: hidden;
 		//-webkit-overflow-scrolling: auto;
 		#grid, #top100grid{
 			filter: blur(15px); //legacy for backdrop-filter
@@ -36,7 +37,7 @@
 #listing{
 	//transform: translateY(100%);
 	//opacity: 1;
-	//z-index: 100;
+	z-index: 100;
 	
 	backdrop-filter: blur(15px);
 	-webkit-backdrop-filter: blur(15px);
@@ -90,10 +91,10 @@
 				width: 70%;
 			}
 			@include bp(laptop) {
-				width: 66%;
+				width: 65%;
 			}
 			@include bp(desktop) {
-				width: 50%;
+				width: 60%;
 			}
 		}	
 
@@ -152,6 +153,8 @@
 		text-align: center;
 		cursor: pointer;
 		border: 1px solid #ccc;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-tap-highlight-color: transparent;
 		&:hover{
 			background-color: #000;
 			color: #fff;
@@ -168,6 +171,7 @@
 	}
 	td{
 		padding: 0.5em 1em;
+
 		&.genre{
 			display: none;
 			@include bp(ipad) {
@@ -195,6 +199,8 @@
 	.list-item{
 		
 		//color: #aaa;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
 		vertical-align: middle;
 
@@ -216,11 +222,10 @@
 #top100{
 	height: 100%;
 	overflow: hidden;
-	#container{
-			outline: 1px solid red;
-			height: 90%;
+	#top100grid{
+		height: 100%;
+		overflow: hidden;
 	}
-	
 	svg{
 		margin-top: 1em;
 	}
@@ -239,6 +244,12 @@
 
 		}
 	}
+
+	.circle{
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-tap-highlight-color: transparent;
+	}
+
 
 	.legend{
 		display: none;
