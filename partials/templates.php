@@ -5,7 +5,7 @@ $templates = array(
 'topgrid' => '<div id="{{id}}"><!--
 				{{# tracks }}
 					--><div class="show-track grid-item" data-id="{{trackId}}" data-src="{{artworkUrl100}}" data-plays="{{plays}}" data-target-id="{{unique_title}}">
-						<a id="album-{{unique_title}}" class="preview" target="_blank" href=" {{trackViewUrl}} " title="{{trackName}}  &mdash; {{artistName}}" >
+						<a id="album-{{unique_title}}" class="preview" target="_blank" href=" {{trackViewUrl}} " title="{{trackName}} &mdash; {{artistName}}" >
 							<img class="artwork" src= "{{artworkUrl100}}"  alt="{{trackName}} &mdash; {{artistName}}" />
 						</a>
 					</div><!--
@@ -14,7 +14,7 @@ $templates = array(
 'top100grid' => '<div id="{{id}}"><!--
 				{{# tracks }}
 					--><div class="grid-item" data-id="{{trackId}}"">
-						<a  class="preview" target="_blank" href=" {{trackViewUrl}} " title="{{collectionName}}  &mdash; {{artistName}}" >
+						<a  class="preview" target="_blank" href=" {{trackViewUrl}} " title="{{collectionName}} &mdash; {{artistName}}" >
 							<img class="artwork" src= "{{artworkUrl100}}"  alt="{{collectionName}} &mdash; {{artistName}}" />
 						</a>
 					</div><!--

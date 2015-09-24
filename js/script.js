@@ -232,7 +232,7 @@ global.drawD3 = function(){
 
     svg.x = d3.time.scale().domain(svg.xDomain).range([svg.radius+svg.pad*2, svg.w-svg.radius]),
     svg.y = d3.scale.linear().domain(svg.yDomain).range([ svg.h-svg.radius-svg.pad*2,svg.radius]),
-    svg.r = d3.scale.linear().domain(svg.rDomain).range([ svg.radius/5,svg.radius]);
+    svg.r = d3.scale.linear().domain(svg.rDomain).range([ svg.radius/3,svg.radius]);
     svg.t = d3.scale.linear().domain(svg.tDomain).range([ 0, 10000]);
 
 
@@ -269,7 +269,26 @@ global.drawD3 = function(){
     
    
 };
+
+
 global.setupD3 = function(container){
+
+    d3.selection.prototype.moveToFront = function() {
+        //console.log("front");
+        return this.each(function(){
+            this.parentNode.appendChild(this);
+        });
+    };
+    d3.selection.prototype.moveToBack = function() {
+        // console.log("back");
+
+        return this.each(function() { 
+            var firstChild = this.parentNode.firstChild; 
+            if (firstChild) { 
+                this.parentNode.insertBefore(this, firstChild); 
+            } 
+        }); 
+    };
    // console.log("Setting up D3");
     svg.pad = dom.title.offsetTop;
     svg.yKey = "totalPlays";
@@ -316,10 +335,27 @@ global.setupD3 = function(container){
     svg.circles = svg.canvas.selectAll("circle")
         .data(topAlbums)
         .enter()
-        .append("circle")
-        .attr("class", "circle")
+        .append("circle");
+
+    svg.circles.on("mouseover",function(){      
+        //d3.select(this).style("transform","scale(2)");
+        d3.select(this).moveToFront().transition()
+                .duration(500).style("stroke-width", 1).attr("r", function (d) { return svg.radius+1; });
+    });
+    svg.circles.on("mouseout",function(){      
+        var cur = d3.select(this);
+        cur.transition().duration(250).style("stroke-width", Math.floor(svg.radius/10)).attr("r", function (d) { return svg.r(+d[svg.rKey]); });
+        setTimeout(function(){cur.moveToBack();}, 251);
+      //d3.select(this).style("transform","scale(1)");
+    });
+
+
+
+    svg.circles.attr("class", "circle")
         .style("fill", function(d) { return "url(#" + d["collectionId"] + ")";})
-        .style("stroke", function(d) { return svg.color(svg.cValue(d));});     // displays small black dot
+        .style("stroke", function(d) { return svg.color(svg.cValue(d));})
+        .append("svg:title")
+          .text(function(d) { return d["collectionName"] + ' — ' + d["artistName"]; });     // displays small black dot
         
 
     svg.legend = svg.canvas.selectAll(".legend")
