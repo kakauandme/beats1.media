@@ -4,11 +4,15 @@ $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 
 ?>
 
-<p class="footer">
+<p id="footer">
 <span class="links">
-<?php for ($i=0; $i < ($cnt = count($nav)); $i++) { 
-	echo "<a ". (($nav[$i]->href == $path)?"class='active'":"")."href='". $nav[$i]->href . "' title='".$nav[$i]->title."'>".$nav[$i]->text."</a>";
-	if($i+1 != $cnt){
+
+<?php
+$cnt = count($nav);
+$i = 0;
+ foreach ($nav as $key => $value) { 
+	echo "<a ". (($value->href == $path)?"class='active'":"")."href='". $value->href . "' title='".$value->title."'>".$value->text."</a>";
+	if(++$i != $cnt){
 		echo " | ";
 	}
 }?>

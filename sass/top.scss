@@ -1,10 +1,43 @@
 @import "mixins";
 
+
+#top{
+	
+
+	p#footer{
+		position: relative;
+	}
+	&.listing-open{
+		//overflow: hidden;
+		//-webkit-overflow-scrolling: auto;
+		#grid, #top100grid{
+			filter: blur(15px); //legacy for backdrop-filter
+			transition-duration: 0;
+			transition-delay: 550ms;	
+			transition-property: filter;
+			-webkit-transition-property: -webkit-filter;
+		    //outline: 10px black solid;
+		}
+		#listing{
+			transform: translateY(0);
+			//transition-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+			//opacity: 1;
+			//transition-timing-function: ease;
+		}
+	
+
+	// p.footer{
+	// 	display: none;
+	// }
+
+	}
+}
+
 #listing{
 	//transform: translateY(100%);
 	//opacity: 1;
+	//z-index: 100;
 	
-
 	backdrop-filter: blur(15px);
 	-webkit-backdrop-filter: blur(15px);
 	
@@ -179,41 +212,39 @@
 	
 }
 
-.listing-open{
-	overflow: hidden;
-	//-webkit-overflow-scrolling: auto;
-	#grid, #top100grid{
-		filter: blur(15px); //legacy for backdrop-filter
-		transition-duration: 0;
-		transition-delay: 600ms;	
-		transition-property: filter;
-		-webkit-transition-property: -webkit-filter;
-	    //outline: 10px black solid;
-	}
-	#listing{
-		transform: translateY(0);
-		//transition-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
-		//opacity: 1;
-		//transition-timing-function: ease;
-	}
-	
-
-	// p.footer{
-	// 	display: none;
-	// }
-
-}  
+  
 #top100{
-	
+	height: 100%;
+	overflow: hidden;
 	#container{
 			outline: 1px solid red;
 			height: 90%;
 	}
 	
-	p.footer{
-		position: absolute;
-		bottom: 0;		
-		
+	svg{
+		margin-top: 1em;
+	}
+	.axis path,
+	.axis line {
+	    fill: none;
+	    stroke: #fff;
+	    shape-rendering: crispEdges;
+	}
+	.axis, .legend, .label
+	{ 
+		text{
+		  
+		    font-size: 0.8em;
+		    fill: #333;
+
+		}
+	}
+
+	.legend{
+		display: none;
+		@include bp(ipad) {
+			display: block;
+		}
 	}
 }
 

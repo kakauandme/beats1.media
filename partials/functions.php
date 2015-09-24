@@ -10,22 +10,25 @@ $baseURL = "http://" . $_SERVER["HTTP_HOST"];
 
 $nav = [];
 
-$nav[0]  = new stdClass();
-$nav[0]->href="/";
-$nav[0]->title="Recent Hits on Beats 1";
-$nav[0]->text="Recent Hits";
+$nav["top"]  = new stdClass();
+$nav["top"]->href="/";
+$nav["top"]->title="Top Tracks on Beats 1";
+$nav["top"]->text="Top Tracks";
+$nav["top"]->description = "Most played songs on Beats 1 Radio by Apple Music";
 
-$nav[1]  = new stdClass();
-$nav[1]->href="/now";
-$nav[1]->title="Now playing on Beats 1";
-$nav[1]->text="Now playing";
+$nav["now"]  = new stdClass();
+$nav["now"]->href="/now";
+$nav["now"]->title="Now playing on Beats 1";
+$nav["now"]->text="Now playing";
+$nav["now"]->description = "Curently playing on Beats 1 Radio by Apple Music";
 
 
 
-// $nav[1]  = new stdClass();
-// $nav[1]->href="/top100";
-// $nav[1]->title="Top 100 Tracks on Beats 1";
-// $nav[1]->text="Top 100";
+$nav["top100"]  = new stdClass();
+$nav["top100"]->href="/top100";
+$nav["top100"]->title="Hottest 100 Albums on Beats 1";
+$nav["top100"]->text="Hottest 100 Albums";
+$nav["top100"]->description = "Most popular albums streamed on Beats 1 Radio by Apple Music";
 
 $connection = null;
 
@@ -80,7 +83,7 @@ function connect(){
 
 function getLastTrack(){
 	global $connection;	
-	$sql = "SELECT p.date, m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId GROUP BY p.date, m.trackId, m.trackName, m.artistName, m.artworkUrl100, m.trackViewUrl ORDER BY p.date DESC LIMIT 1;";
+	$sql = "SELECT  m.trackName, m.artistName, m.artworkUrl100 FROM media m LEFT JOIN plays p ON m.trackId = p.trackId ORDER BY p.date DESC LIMIT 1;";
 	//echo 	$sql ;
 	$lastRecord = FALSE;
 
@@ -124,7 +127,7 @@ function getTopTracks($limit, $limitInWeeks){
 		$timeLimit = " WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL " . $limitInWeeks . " WEEK) ";
 	}
 
-	$sql = "SELECT m.trackId, m.trackName, m.collectionName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId ". $timeLimit ." GROUP BY m.trackId, m.trackName, m.collectionName, m.artistName,  m.artworkUrl100, m.primaryGenreName, m.trackViewUrl ORDER BY plays DESC LIMIT ".$limit.";";
+	$sql = "SELECT m.trackId, m.trackName, m.collectionName, m.artistName, m.artworkUrl100, m.primaryGenreName, m.trackViewUrl, COUNT(*) AS plays FROM media m LEFT JOIN plays p ON m.trackId = p.trackId ". $timeLimit ." GROUP BY m.trackId ORDER BY plays DESC LIMIT ".$limit.";";
 	//echo 	$sql ;
 	$topTracks = FALSE;
 
@@ -144,6 +147,33 @@ function getTopTracks($limit, $limitInWeeks){
 		$result->close();
 	}
 	return $topTracks;
+}
+
+
+function getTopAlbums(){
+	global $connection;	
+	$sql = "SELECT a.collectionId, a.collectionName, a.artistName, a.trackViewUrl, UNIX_TIMESTAMP(a.releaseDate) AS releaseDate, UNIX_TIMESTAMP(MIN(a.firstPlay)) AS firstPlay, UNIX_TIMESTAMP(MAX(a.lastPlay)) AS lastPlay, a.artworkUrl100, a.primaryGenreName, MAX(a.plays) AS totalPlays, COUNT(*) AS numberOfTracks
+			FROM (SELECT m.collectionId, m.collectionName, m.artistName, m.artworkUrl100, m.releaseDate, m.primaryGenreName, m.trackViewUrl,  MAX(p.`date`) AS lastPlay, COUNT(*) AS plays, MIN(p.`date`) AS firstPlay
+					FROM media m 
+			        LEFT JOIN plays p ON m.trackId = p.trackId
+			        WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL 1 year)
+			        GROUP BY m.trackId) a			  
+			GROUP BY a.collectionId
+			ORDER BY TotalPlays DESC, NumberOfTracks DESC
+			LIMIT 100;";
+	$topAlbums = FALSE;
+	if($result = $connection->query($sql)){
+
+		if ($result->num_rows > 0 ) {
+			
+			$topAlbums = array();
+			while($r = mysqli_fetch_assoc($result)) {
+			    $topAlbums[] = $r;
+			}
+		}
+		$result->close();
+	}
+	return $topAlbums;
 }
 
 

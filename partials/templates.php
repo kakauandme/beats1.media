@@ -11,6 +11,15 @@ $templates = array(
 					</div><!--
 				{{/ tracks }}
 			--></div>',
+'top100grid' => '<div id="{{id}}"><!--
+				{{# tracks }}
+					--><div class="grid-item" data-id="{{trackId}}"">
+						<a  class="preview" target="_blank" href=" {{trackViewUrl}} " title="{{collectionName}}  &mdash; {{artistName}}" >
+							<img class="artwork" src= "{{artworkUrl100}}"  alt="{{collectionName}} &mdash; {{artistName}}" />
+						</a>
+					</div><!--
+				{{/ tracks }}
+			--></div>',
 'toplisting' => '<div id="listing">
 					<a href="#" id="close" title="Hide">▼</a>
 					<span class="column details">
@@ -41,8 +50,7 @@ $templates = array(
 					</span>
 				</div>',
 'topgraph' => '<div id="graph">
-					<h1>'.$title.'</h1>
-					<div id="container"></div>
+					<h1 id="title">'.$title.'</h1>
 				</div>'
 
 );

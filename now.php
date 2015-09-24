@@ -1,9 +1,10 @@
 <?php
 
-	$title = "Now playing on Beats 1"; 
-	$description = "Curently playing on Beats 1 Radio by Apple Music";
-	
 	require_once("partials/functions.php");
+	$title = $nav["now"]->title; 
+	$description = $nav["now"]->description;
+	
+	
 	require_once("partials/templates.php");
 	require_once("Mustache/Autoloader.php");
 	Mustache_Autoloader::register();

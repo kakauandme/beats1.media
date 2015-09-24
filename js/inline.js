@@ -1,10 +1,16 @@
-var body = document.getElementsByTagName("body")[0]; body.className = ""; //remove no-js
-var grid = document.getElementById("grid");
-var top100grid = document.getElementById("top100grid");
+var dom = dom || {};
+
+
+var global = global || {};
+
+dom.body = document.getElementsByTagName("body")[0]; dom.body.className = ""; //remove no-js
+dom.grid = document.getElementById("grid");
+dom.top100grid = document.getElementById("top100grid");
+dom.script = document.getElementsByTagName('script')[0];
 
 var artworkSizes = [200,400,600,1200,1500];
 
-var layout =  function(g){
+global.layout =  function(g){
 	var msnry = new Masonry( g, {
 			itemSelector: 'div.grid-item',
 			//columnWidth: '.grid-sizer',
@@ -12,7 +18,7 @@ var layout =  function(g){
 			transitionDuration: 0
 	 });
 };
-var updateImage = function(item){
+global.updateImage = function(item){
 	var width = item.offsetWidth;
 	var img = item.getElementsByTagName("img")[0];
 
@@ -58,8 +64,8 @@ var updateImage = function(item){
 	  	};
 	}
 };		
-var t = document.getElementsByTagName('script')[0];
-var loadScript = function(src, callback, arg){
+
+global.loadScript = function(src, callback, arg){
 	var r = false;
 	var s = document.createElement('script');
 	s.type = 'text/javascript';  
@@ -74,15 +80,15 @@ var loadScript = function(src, callback, arg){
 			}					
 		}
 	};	
-	t.parentNode.insertBefore(s, t);
+	dom.script.parentNode.insertBefore(s, dom.script);
 	s.src = src; 
 };
-if(grid){
+if(dom.grid){
 
-	loadScript("https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js", layout, grid); 
+	global.loadScript("https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js", global.layout, dom.grid); 
 
-	var items = grid.children;
+	var items = dom.grid.children;
 	for(var i = 0; i < items.length; i++) {
-		updateImage(items[i]);
+		global.updateImage(items[i]);
 	};
 }
