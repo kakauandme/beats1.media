@@ -1,18 +1,10 @@
 @import "global";
 
-#body{
-	height: 100%;
-	overflow: hidden;
-}
-html{
-	height: 100%;
-	overflow: hidden;
-}
 div#now{
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 100vh;
+	height: 100%;
 	overflow: hidden;
 
 	p,h1{
