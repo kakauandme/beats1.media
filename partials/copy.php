@@ -5,7 +5,7 @@ $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 ?>
 
 <p id="footer">
-<span class="links">
+<span id="links">
 
 <?php
 $cnt = count($nav);

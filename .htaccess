@@ -891,7 +891,7 @@ FileETag None
 
   # HTML
 
-    ExpiresByType text/html                             "access plus 10 minutes"
+    ExpiresByType text/html                             "access plus 2 minutes"
 
   # JavaScript
 
@@ -919,6 +919,7 @@ FileETag None
     ExpiresByType video/mp4                             "access plus 1 month"
     ExpiresByType video/ogg                             "access plus 1 month"
     ExpiresByType video/webm                            "access plus 1 month"
+    ExpiresByType audio/mp4                             "access plus 1 month"
 
 
   # Web fonts

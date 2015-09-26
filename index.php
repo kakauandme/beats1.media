@@ -46,10 +46,12 @@ shuffle ( $shuffledTracks);
 	require_once("partials/copy.php");
 	?>
 	<script>		
-		<?php require_once("js/inline-min.js");
+		<?php
 		echo "var cacheBuster = '". $cacheBuster . "';";
+		require_once("js/inline-top.min.js");	
 		?>
 	</script>
-	<script type="text/javascript" async src="js/script-min.<?php echo $cacheBuster; ?>.js"></script>
+	<script type="text/javascript" async src="js/script.min.<?php echo $cacheBuster; ?>.js"></script>
+	<?php require_once("partials/footer.php"); ?>
 </body>
 </html>

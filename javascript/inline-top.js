@@ -1,12 +1,7 @@
-var dom = dom || {};
+// @codekit-prepend "_global.js"
 
-
-var global = global || {};
-
-dom.body = document.getElementsByTagName("body")[0]; dom.body.className = ""; //remove no-js
 dom.grid = document.getElementById("grid");
-dom.top100grid = document.getElementById("top100grid");
-dom.script = document.getElementsByTagName('script')[0];
+
 
 var artworkSizes = [200,400,600,1200,1500];
 
@@ -65,24 +60,7 @@ global.updateImage = function(item){
 	}
 };		
 
-global.loadScript = function(src, callback, arg){
-	var r = false;
-	var s = document.createElement('script');
-	s.type = 'text/javascript';  
-	s.async = "async";
-	s.onload = s.onreadystatechange = function() {
-		//console.log( this.readyState ); //uncomment this line to see which ready states are called.
-		if ( !r && (!this.readyState || this.readyState == 'complete') )
-		{
-			r = true;
-			if(callback){
-				callback(arg);
-			}					
-		}
-	};	
-	dom.script.parentNode.insertBefore(s, dom.script);
-	s.src = src; 
-};
+
 if(dom.grid){
 
 	global.loadScript("https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js", global.layout, dom.grid); 

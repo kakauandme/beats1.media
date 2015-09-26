@@ -1,7 +1,13 @@
 <?php
 $templates = array(
 
-'now' => '<div id="now" style="background-image: url({{artworkUrl}})"><h1>{{artistName}} &mdash; {{trackName}}</h1>',
+'now' => '<h1><a id="link-{{unique_title}}" class="preview" target="_blank" data-artist="{{artistName}}" data-track="{{trackName}}" data-album="{{collectionName}}" href="{{trackViewUrl}}" data-target-id="{{unique_title}}" title="Open in Apple Music">{{artistName}} &mdash; {{trackName}}</a></h1>
+		<div id="cover" style="background-image: url({{artworkUrl}})" title="Play">
+		<span id="play">play</span>
+			 <audio id="audio" src="{{previewUrl}}" preload="auto" loop volume="0.5">
+				<p>Your browser does not support the <code>audio</code> element </p>
+			</audio>
+		</div>',
 'topgrid' => '<div id="{{id}}"><!--
 				{{# tracks }}
 					--><div class="show-track grid-item" data-id="{{trackId}}" data-src="{{artworkUrl100}}" data-plays="{{plays}}" data-target-id="{{unique_title}}">
@@ -23,8 +29,8 @@ $templates = array(
 'toplisting' => '<div id="listing">
 					<a href="#" id="close" title="Hide">▼</a>
 					<span class="column details">
-						<a target="_blank" id="selected-link" href="#"><img id="selected-artwork" src="" width="100%"/></a>
-						<p id="selected-track"><a target="_blank" id="selected-track-link" href="#">Hello - world</a></p>
+						<a target="_blank" id="selected-link" href="#" title="Open in Apple Music"><img id="selected-artwork" src="" width="100%"/></a>
+						<p id="selected-track"><a target="_blank" id="selected-track-link" href="#" title="Open in Apple Music"></a></p>
 					</span><span class="column list">
 						
 						<table>
@@ -42,7 +48,7 @@ $templates = array(
 											<p>{{primaryGenreName}}</p>
 									</td>
 									<td class="link">
-										<p><a id="link-{{unique_title}}" class="preview" target="_blank" data-artist="{{artistName}}" data-track="{{trackName}}" data-album="{{collectionName}}" href="{{trackViewUrl}}" data-target-id="{{unique_title}}" title="Open in Apple Music">▶</a></p>
+										<p><a id="link-{{unique_title}}" class="preview" target="_blank" data-artist="{{artistName}}" data-track="{{trackName}}" data-album="{{collectionName}}" href="{{trackViewUrl}}" data-target-id="{{unique_title}}" title="Open in Apple Music">♫</a></p>
 									</td>
 								</tr>
 							{{/ tracks }}
@@ -50,7 +56,6 @@ $templates = array(
 					</span>
 				</div>',
 'topgraph' => '<div id="graph">
-					<h1 id="title">'.$title.'</h1>
 				</div>'
 
 );

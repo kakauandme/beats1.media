@@ -1,22 +1,56 @@
 @import "global";
 
-div#now{
+div#cover{
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 100%;
 	overflow: hidden;
+	width: 100%;
+	text-align: center;
+	line-height: 100vh;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	
 
-	p,h1{
+
+	span#play{
 		
-		background-color: rgba(255,255,255,0.66);
-		backdrop-filter: blur(15px);
-		-webkit-backdrop-filter: blur(15px);
+		font-size: 10em;
+		font-weight: 100;		
+		color: rgba(255,255,255,0.66);
+		
+		text-shadow: 0px 0px 0.3em rgba(0,0,0,0.75);
+	}
+	&:hover{
+		span#play{
+			text-shadow: 0px 0px 0.3em rgba(0, 0, 0, 1);
+			color: rgba(255,255,255,1);
+		}
 	}
 
-	h1{		
-		top: 0;
-		margin: 0;
-		padding: 1em;
-	}
+	
+}
+
+p#footer,h1{
+		
+	background-color: rgba(255,255,255,0.66);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+}
+
+h1{		
+	top: 0;
+	margin: 0;
+	padding: 1em 0.5em;
+	text-align: left;
+	position: absolute;
+	width: 100%;
+}
+
+audio{
+background-color: transparent;
+bottom: 10%;
+width: 50%;
 }

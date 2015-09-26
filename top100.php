@@ -45,6 +45,7 @@ disconnect();
 </head>
 <?php flush(); ?>
 <body id="top100" class="no-js">
+	<h1 id="title"><?php echo $title; ?></h1>
 	<?php 
 	echo $m->render($templates["top100grid"], array("tracks" => $topAlbums, "id"=>"top100grid"));
 	//echo $m->render($templates["toplisting"], array("tracks" => $topTracks));
@@ -52,14 +53,16 @@ disconnect();
 	require_once("partials/copy.php");
 	?>
 	<script>		
-		<?php require_once("js/inline-min.js");
+		<?php 
 		echo "var cacheBuster = '". $cacheBuster . "';\n";
+		require_once("js/inline-top100.min.js");		
 		?>
 		var topAlbums = <?=json_encode($topAlbums);?>;
 		
 		
 		//console.log(topAlbums[0]);
 	</script>
-	<script type="text/javascript" async src="js/script-min.<?php echo $cacheBuster; ?>.js"></script>
+	<script type="text/javascript" async src="js/script.min.<?php echo $cacheBuster; ?>.js"></script>
+	<?php require_once("partials/footer.php"); ?>
 </body>
 </html>

@@ -29,13 +29,19 @@
 	</style>
 </head>
 <?php flush(); ?>
-<body id="body">
-	<?php 
-		$lastTrack->artworkUrl = str_replace("100x100", "1500x1500", $lastTrack->artworkUrl100);
-		echo $m->render($templates["now"],$lastTrack);
-		require_once("partials/copy.php"); ?>	
-	</div>
+<body id="now">
+
+	<?php $lastTrack->artworkUrl = str_replace("100x100", "1500x1500", $lastTrack->artworkUrl100);
+	echo $m->render($templates["now"],$lastTrack);
+	require_once("partials/copy.php"); ?>
+	<script>		
+		<?php
+		echo "var cacheBuster = '". $cacheBuster . "';\n";
+		require_once("js/inline-now.min.js");
+		?>
+	</script>
+	<script type="text/javascript" async src="js/script.min.<?php echo $cacheBuster; ?>.js"></script>
 <?php /*Footer */ ?>
-<?php require_once("partials/footer.php"); ?>
+	<?php require_once("partials/footer.php"); ?>
 </body>
 </html>

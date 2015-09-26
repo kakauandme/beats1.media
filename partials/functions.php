@@ -2,7 +2,7 @@
 
 
 require_once("partials/variables.php");
-$cacheBuster = 9;
+$cacheBuster = 18;
 //$time_start = microtime(true);
 $siteName = "Beats 1 Media";
 $baseURL = "http://" . $_SERVER["HTTP_HOST"];
@@ -83,7 +83,7 @@ function connect(){
 
 function getLastTrack(){
 	global $connection;	
-	$sql = "SELECT  m.trackName, m.artistName, m.artworkUrl100 FROM media m LEFT JOIN plays p ON m.trackId = p.trackId WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL 1 day) ORDER BY p.date DESC LIMIT 1;";
+	$sql = "SELECT  m.trackName, m.artistName, m.collectionName, m.artworkUrl100, m.trackViewUrl, m.previewUrl FROM media m LEFT JOIN plays p ON m.trackId = p.trackId WHERE p.`date` >= DATE_SUB(NOW(), INTERVAL 1 day) ORDER BY p.date DESC LIMIT 1;";
 	//echo 	$sql ;
 	$lastRecord = FALSE;
 
@@ -92,6 +92,7 @@ function getLastTrack(){
 		if ($result->num_rows == 1) {
 
 			$lastRecord = $result->fetch_object();
+			$lastRecord->unique_title =  replaceSpaces($lastRecord->trackName .' '. $lastRecord->artistName);
 			//$lastRecord->unique_title = replaceSpaces($lastRecord->trackName .' '. $lastRecord->artistName);
 
 		}
@@ -101,7 +102,7 @@ function getLastTrack(){
 }
 function getLastMeta(){
 	global $connection;	
-	$sql = "SELECT id, filename, title, album, artist FROM meta ORDER BY id DESC LIMIT 1";
+	$sql = "SELECT id, filename, title, album, artist FROM meta  WHERE `date` >= DATE_SUB(NOW(), INTERVAL 1 day) ORDER BY id DESC LIMIT 1";
 	//echo 	$sql ;
 	$lastRecord = FALSE;
 

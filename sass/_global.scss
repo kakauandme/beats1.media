@@ -6,6 +6,7 @@
 html, body{
 	height: 100%;
 	overflow: hidden;
+	-webkit-text-size-adjust: 100%;
 }
 
 body{
@@ -13,15 +14,16 @@ body{
 	color: #333;
 	font-family: -apple-system, 'Helvetica Neue', 'Lucida Grande', sans-serif;
 	margin: 0;
-	font-size: 0.7em;
+	line-height: 1.5;
+	font-size: 0.66em;
 	@include bp(ipad) {
-		font-size: 0.8em;
+		font-size: 0.75em;
 	}
 	@include bp(laptop) {
-		font-size: 1em;
+		font-size: 0.9em;
 	}
 	@include bp(desktop) {
-		font-size: 1.2em;
+		font-size: 1em;
 	}
 	
 }

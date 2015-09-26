@@ -11,7 +11,7 @@
     height: 100%;
     width: 100%;
     background-color: rgba(255,255,255,0.66);
-    padding: 1em;
+    padding: 6em 1em 3em;
 }
 
 
@@ -56,5 +56,13 @@
 
 h1{
 	margin: 0;
-	padding: 0;
+	//padding: 1em;
+	position: absolute;
+	right: 0;
+	text-align: right;
+	//color: #fff;
+	padding: 1em 0.5em;
+	line-height: 1;
+	z-index: 100;
+
 }
