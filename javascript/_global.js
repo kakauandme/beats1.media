@@ -5,7 +5,7 @@ var global = global || {};
 dom.body = document.getElementsByTagName("body")[0]; dom.body.className = ""; //remove no-js
 
 dom.script = document.getElementsByTagName('script')[0];
-
+global.artworkSizes = [200,400,600,1200,1500];
 
 global.loadScript = function(src, callback, arg){
 	var r = false;
@@ -26,7 +26,17 @@ global.loadScript = function(src, callback, arg){
 	s.src = src; 
 };
 
+global.getImageWidth = function(w){
+	var newWidth  = global.artworkSizes[global.artworkSizes.length-1];
+	for (var i = 0; i < global.artworkSizes.length; i++) {
+		if(w <= global.artworkSizes[i]){
+			newWidth = global.artworkSizes[i];
+			break;
+		}
+	}; 
 
+	return newWidth;	
+};
 
 //CSS
 var stylesheet = document.createElement('link');

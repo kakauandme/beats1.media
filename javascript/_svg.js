@@ -20,6 +20,8 @@ global.drawD3 = function(){
     svg.pad = dom.links[0].offsetLeft
     svg.w = dom.graph.offsetWidth -  (svg.pad*2);
     svg.h = dom.graph.offsetHeight - dom.footer.offsetHeight - dom.title.offsetHeight;
+    svg.bigImageSize  = global.getImageWidth(Math.min(svg.w, svg.h) - svg.pad*2);
+    console.log(svg.bigImageSize);
     svg.radius =  Math.max(Math.min(Math.min(svg.w, svg.h)/10, 50), 25);
     //console.log(svg.radius);
 
@@ -81,6 +83,71 @@ global.drawD3 = function(){
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+svg.click = function(d){
+    d3.event.stopPropagation();
+    if(svg.active.node() === this) return svg.reset();
+    svg.reset();
+    dom.title.textContent = d["collectionName"] + ' — ' + d["artistName"];
+    svg.active = d3.select(this).classed("active", true);
+    
+    if(svg.active.attr("data-zoomed") == 0){
+       
+        svg.active.attr("data-zoomed", 1);     
+        var img = d3.select("pattern#artwork-"+svg.active.attr("data-id") + " image");
+        img.attr('xlink:href', d["artworkUrl100"].replace("100x100", svg.bigImageSize+"x"+svg.bigImageSize))    
+    }
+
+    
+    svg.active.moveToFront()
+                    .transition()
+                    .duration(500)
+                     .style("stroke-width", svg.pad)
+                    .attr("r", Math.floor(Math.min(svg.w, svg.h)/2) - svg.pad*2)
+                    .attr("cy", Math.floor(svg.h/2))
+                    .attr("cx", Math.floor(svg.w/2));
+    
+};
+
+
+svg.reset = function(){
+    if(svg.active.empty()) return;
+
+    
+    svg.active.transition()
+            .duration(500)
+            .attr("cx", function (d) { return svg.x(+d[svg.xKey]); })
+            .attr("cy", function (d) { return svg.y(+d[svg.yKey]); })
+            .style("stroke-width", Math.floor(svg.radius/10))
+            .attr("r", function (d) { return svg.r(+d[svg.rKey]); });
+    svg.active.classed("active", false);
+    svg.active = d3.select(null);
+    dom.title.textContent = dom.title.getAttribute("data-text");
+
+};
+
+svg.hover = function(d){
+    if(svg.active.node() === this) return;
+    d3.select(this).moveToFront()
+                    .transition()
+                    .duration(500)
+                    .attr("r",  svg.radius);
+   
+};
+
+svg.hoverOut = function(d){
+    if(svg.active.node() === this) return;
+
+    
+
+    var cur = d3.select(this);
+    cur.transition()
+        .duration(250)
+       
+        .attr("r", svg.r(+d[svg.rKey]));
+    setTimeout(function(){cur.moveToBack();}, 251);
+
+};
+
 global.setupD3 = function(container){
 
     d3.selection.prototype.moveToFront = function() {
@@ -106,6 +173,7 @@ global.setupD3 = function(container){
     svg.rKey = "numberOfTracks";
     svg.cKey = "primaryGenreName";
     svg.tKey = "lastPlay";
+    svg.active = d3.select(null);
 
     svg.canvas = d3.select("#graph").append("svg");
     
@@ -129,7 +197,7 @@ global.setupD3 = function(container){
     svg.canvas.append("defs").selectAll("pattern").data(topAlbums)
         .enter()
         .append('pattern')
-        .attr('id', function(d) { return d["collectionId"];})
+        .attr('id', function(d) { return "artwork-"+d["collectionId"];})
         .attr('x', 0)
         .attr('y', 0)
         .attr('width', "100%")
@@ -147,25 +215,21 @@ global.setupD3 = function(container){
         .enter()
         .append("circle");
 
-    svg.circles.on("mouseover",function(){      
-        //d3.select(this).style("transform","scale(2)");
-        d3.select(this).moveToFront().transition()
-                .duration(500).style("stroke-width", 2).attr("r", function (d) { return svg.radius+1; });
-    });
-    svg.circles.on("mouseout",function(){      
-        var cur = d3.select(this);
-        cur.transition().duration(250).style("stroke-width", Math.floor(svg.radius/10)).attr("r", function (d) { return svg.r(+d[svg.rKey]); });
-        setTimeout(function(){cur.moveToBack();}, 251);
-      //d3.select(this).style("transform","scale(1)");
-    });
+    svg.circles.on("mouseover", svg.hover);
 
+    svg.circles.on("mouseout",svg.hoverOut);
+
+    svg.circles.on("click",svg.click);
+    svg.canvas.on("click",svg.reset);
 
 
     svg.circles.attr("class", "circle")
-        .style("fill", function(d) { return "url(#" + d["collectionId"] + ")";})
+        .style("fill", function(d) { return "url(#artwork-" + d["collectionId"] + ")";})
         .style("stroke", function(d) { return svg.color(svg.cValue(d));})
+        .attr("data-id",function(d) { return d["collectionId"];})
+        .attr("data-zoomed",0)
         .append("svg:title")
-          .text(function(d) { return d["collectionName"] + ' — ' + d["artistName"]; });     // displays small black dot
+        .text(function(d) { return d["collectionName"] + ' — ' + d["artistName"]; });     // displays small black dot
         
 
     svg.legend = svg.canvas.selectAll(".legend")

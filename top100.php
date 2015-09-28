@@ -45,7 +45,7 @@ disconnect();
 </head>
 <?php flush(); ?>
 <body id="top100" class="no-js">
-	<h1 id="title"><?php echo $title; ?></h1>
+	<h1 id="title" data-text="<?php echo $title; ?>"><?php echo $title; ?></h1>
 	<?php 
 	echo $m->render($templates["top100grid"], array("tracks" => $topAlbums, "id"=>"top100grid"));
 	//echo $m->render($templates["toplisting"], array("tracks" => $topTracks));

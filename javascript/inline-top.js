@@ -3,7 +3,7 @@
 dom.grid = document.getElementById("grid");
 
 
-var artworkSizes = [200,400,600,1200,1500];
+
 
 global.layout =  function(g){
 	var msnry = new Masonry( g, {
@@ -33,13 +33,7 @@ global.updateImage = function(item){
 	  	
 	  	if(src && width){		  		
 	  		item.className+=" loading";		
-	  		var newWidth  = artworkSizes[artworkSizes.length-1];
-	  		for (var i = 0; i < artworkSizes.length; i++) {
-	  			if(width <= artworkSizes[i]){
-	  				newWidth = artworkSizes[i];
-	  				break;
-	  			}
-	  		}; 		
+	  		var newWidth  = global.getImageWidth(width);
      		
 		  	var tmp = new Image();
 		  	tmp.onload=function(){

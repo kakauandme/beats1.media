@@ -137,13 +137,7 @@ global.selectTrack = function(target){
 
     dom.selectedTrack.href = dom.selectedLink.href= target.getElementsByTagName("a")[0].href;
 
-    var newWidth  = artworkSizes[artworkSizes.length-1];
-    for (var i = 0; i < artworkSizes.length; i++) {
-        if(dom.selectedArtwork.offsetWidth <= artworkSizes[i]){
-            newWidth = artworkSizes[i];
-            break;
-        }
-    }     
+    var newWidth  = global.getImageWidth(dom.selectedArtwork.offsetWidth);
     
     var tmp = new Image();
     tmp.onload=function(){
