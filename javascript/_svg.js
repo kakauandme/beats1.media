@@ -15,7 +15,7 @@ totalPlays: "97"
 
 var svg = svg || {};
 
-global.drawD3 = function(){
+svg.drawD3 = function(){
     //console.log("Drawing up D3");
     svg.pad = dom.links[0].offsetLeft
     svg.w = dom.graph.offsetWidth -  (svg.pad*2);
@@ -148,7 +148,7 @@ svg.hoverOut = function(d){
 
 };
 
-global.setupD3 = function(container){
+svg.setupD3 = function(container){
 
     d3.selection.prototype.moveToFront = function() {
         //console.log("front");
@@ -262,6 +262,6 @@ global.setupD3 = function(container){
                 .attr("dy", ".35em")
                 .style("text-anchor", "end")
                 .text("amount of plays");
-    global.drawD3();
-    window.addEventListener("resize",  global.drawD3);
+    svg.drawD3();
+    window.addEventListener("resize",  svg.drawD3);
 };

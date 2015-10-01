@@ -200,7 +200,7 @@ if(dom.listing){
 
 if(dom.graph){
    // console.log("Loading D3");
-    global.loadScript("http://d3js.org/d3.v3.min.js", global.setupD3);
+    global.loadScript("http://d3js.org/d3.v3.min.js", svg.setupD3);
 
 }
 
