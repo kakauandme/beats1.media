@@ -56,7 +56,7 @@ svg.filter = function(d){
             break;
         }
     };
-    
+    history.pushState({}, '', "#" +svg.genreShortName(svg.curGenre));
     svg.drawD3();
 };
 
@@ -69,6 +69,7 @@ svg.clearFilters = function(){
     svg.data = topAlbums;
     dom.title.textContent = dom.title.getAttribute("data-text");
     svg.curGenre = null;
+    history.pushState({}, '', "#");
     svg.drawD3();
 }
 
@@ -123,6 +124,10 @@ svg.hoverOut = function(d){
 
 };
 
+svg.genreShortName = function(str){
+    return str.toLowerCase().replace(/[^a-z]/g,'');
+};
+
 svg.drawD3 = function(){
     //console.log("Drawing up D3");
 
@@ -157,7 +162,7 @@ svg.drawD3 = function(){
     svg.r = d3.scale.linear().domain(svg.rDomain).range([ svg.radius/3,svg.radius]);
 
     svg.tDomain = d3.extent(svg.data, function(d) { return +d[svg.tKey]; });  
-    svg.t = d3.scale.linear().domain(svg.tDomain).range([ 1000, 0]);
+    svg.t = d3.scale.linear().domain(svg.tDomain).range([ 500, 0]);
 
 
     svg.xAxis.scale(svg.xA);
@@ -267,11 +272,12 @@ svg.setupD3 = function(container){
     svg.rKey = "numberOfTracks";
     svg.cKey = "primaryGenreName";
     svg.tKey = "lastPlay";
-    svg.active = d3.select(null);
-    svg.genre  = d3.select(null);
+   
 
 
+    
     svg.data = topAlbums;
+
     svg.dataByGenre = d3.nest()
                             .key(function(d) { return d[svg.cKey]; })
                             .entries(svg.data);
@@ -284,6 +290,12 @@ svg.setupD3 = function(container){
     // setup fill color
     svg.cValue = function(d) { return d[svg.cKey];},
     svg.color = d3.scale.category20().domain(svg.cDomain.domain());
+
+
+   
+
+
+    
 
 
 
@@ -323,7 +335,10 @@ svg.setupD3 = function(container){
     svg.legend = svg.canvas.selectAll(".legend")
         .data(svg.color.domain())
         .enter().append("g")
-        .attr("class", "legend")
+        .attr("class", function(d) { 
+            if(window.location.hash.length < 2) return "legend";
+            return (svg.genreShortName(d) === window.location.hash.substring(1))?"legend active":"legend";
+        })
         .attr("data-id", function(d) { return d;});
         
 
@@ -353,6 +368,22 @@ svg.setupD3 = function(container){
                 .attr("x", 0)
                 .style("text-anchor", "end")
                 .text("amount of plays");
+
+
+    svg.active = d3.select(null);
+    svg.genre  = d3.select(".legend.active");
+
+    if(window.location.hash.length > 2){
+        var hash = window.location.hash.substring(1);
+         for (var i = 0; i < svg.dataByGenre.length; i++) {
+            if(svg.genreShortName(svg.dataByGenre[i].key) === hash){
+                svg.data = svg.dataByGenre[i].values;
+                var titles = dom.title.getAttribute("data-text").split("100 ");
+                dom.title.textContent = titles[0] + "100 " + svg.dataByGenre[i].key + " " +titles[1];
+                break;
+            }
+        };
+    }
     svg.drawD3();
     window.addEventListener("resize",  svg.drawD3);
 };
