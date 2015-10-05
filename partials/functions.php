@@ -2,7 +2,7 @@
 
 
 require_once("partials/variables.php");
-$cacheBuster = 18;
+$cacheBuster = 24;
 //$time_start = microtime(true);
 $siteName = "Beats 1 Media";
 $baseURL = "http://" . $_SERVER["HTTP_HOST"];
@@ -146,7 +146,7 @@ function getTopTracks(){
         `plays` `p1`
 
     WHERE
-        (`p1`.`date` >= (NOW() - INTERVAL 2 WEEK)) 
+        (`p1`.`date` >= (NOW() - INTERVAL 1 WEEK)) 
     GROUP BY trackId1) t1
     LEFT JOIN 
     
@@ -157,7 +157,7 @@ function getTopTracks(){
         `plays` `p2`
 
     WHERE
-        (`p2`.`date` < (NOW() - INTERVAL 2 WEEK))  AND (`p2`.`date` >= (NOW() - INTERVAL 3 WEEK)) 
+        (`p2`.`date` < (NOW() - INTERVAL 1 WEEK))  AND (`p2`.`date` >= (NOW() - INTERVAL 2 WEEK)) 
     GROUP BY trackId2) t2 ON  t2.trackId2 = t1.trackId1
     
     JOIN media m ON m.trackId = t1.trackId1

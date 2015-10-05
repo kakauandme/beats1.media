@@ -210,9 +210,9 @@ svg.drawD3 = function(){
     svg.legend.selectAll("circle").attr("cx", svg.w - svg.pad/2).attr("cy", svg.pad/2).attr("r", svg.pad/2);
 
 
-    svg.radiusLegend.attr("transform", function(d, i) { return "translate(0," +  (((svg.cDomain.domain().length+1) * svg.pad*1.5) + (svg.pad*3))  + ")"; });
-    svg.radiusLegend.selectAll("tspan").attr("x", svg.w - svg.pad*5.5);
-    svg.radiusLegend.selectAll("circle").attr("cx", svg.w - svg.pad*3).attr("r", svg.pad*3);
+    svg.radiusLegend.attr("transform", function(d, i) { return "translate(0," +  (((svg.cDomain.domain().length+0.5) * svg.pad*1.5) + (svg.pad*3))  + ")"; });
+    svg.radiusLegend.selectAll("text").attr("x", svg.w - svg.pad*3.5);
+    svg.radiusLegend.selectAll("circle").attr("cx", svg.w).attr("r", svg.pad*3);
 
     svg.xLabel.attr("x", svg.w ).attr("y", svg.h - svg.pad*1.2);
     svg.yLabel.attr("y", svg.pad);
@@ -398,12 +398,10 @@ svg.setupD3 = function(container){
 
     svg.radiusLegend =  svg.canvas.append("g")
                 .attr("class", "radius-legend");
-    svg.radiusLegendText = svg.radiusLegend.append("text")
-               .attr("dy", "0.35em");
-    svg.radiusLegendText.selectAll("tspan").data(["no. of tracks", " in an album" ]).enter().append("tspan")
-                .attr("x", "0")
-                .attr("dy", function(d, i){return !i?"0":"1.2em";} )
-                .text(function(d){return d;});
+    svg.radiusLegend.append("text")
+               .attr("dy", "0.35em")
+               .style("text-anchor", "end")
+                .text("no. of tracks in an album");
     svg.radiusLegend.append("circle")
                 .style("fill-opacity", 0)
                 .attr("y",0)
