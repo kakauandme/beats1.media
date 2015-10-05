@@ -124,6 +124,17 @@
     		@include bp(ipad) {
 				border-bottom-width : 0;
 			}
+			a:after{
+				content: "♫";
+				font-size: 0.5em;
+				vertical-align: super;
+			
+		    	padding-left: 0.5em
+			}
+			a:hover{
+				text-decoration: none !important;
+				border-bottom: 1px solid #222;
+			}
     		
 			
 			//transform: translateY(-100%);

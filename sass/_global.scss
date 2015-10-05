@@ -41,6 +41,17 @@ a{
 }
 h1{
 	font-weight: 200;
+	a:after{
+		content: "♫";
+		font-size: 0.5em;
+		vertical-align: super;
+	
+    	padding-left: 0.5em
+	}
+	a:hover{
+		text-decoration: none !important;
+		border-bottom: 1px solid #222;
+	}
 }
 p#footer{
 	text-align: left;

@@ -79,7 +79,7 @@ function processTrack (response) {
             var uniqueId = (track.trackName + " " + track.artistName).toLowerCase().replace(/[^a-z0-9\s]/gi, '').replace(/\s+/gi,'-');
           //  console.log(uniqueId);
             try{
-               localStorage.setItem(uniqueId+"-"+country, url);
+               localStorage.setItem(uniqueId+"-"+global.country, url);
             }catch(e){
                 console.error("Localstorage error: " + e);
                 localStorage.clear();
@@ -95,8 +95,8 @@ function processTrack (response) {
 };
 function processGeolocation(response){
 	if(response){
-        country = response.country.toLowerCase();
-		global.updateUrls(country);					
+        global.country = response.country.toLowerCase();
+		global.updateUrls(global.country);					
 	}
 }
 global.easeInOut = function(currentTime, start, change, duration) {
@@ -225,9 +225,9 @@ for (var i = 0; i < dom.links.length; i++) {
     dom.links[i].addEventListener("click", global.navClick, true);
 };
 
-var country = global.readCookie("country");
-if(country){
-    global.updateUrls(country);
+global.country = global.readCookie("country");
+if(global.country){
+    global.updateUrls(global.country);
 }else{
     global.loadScript("http://ipinfo.io/?callback=processGeolocation"); 
 }
