@@ -47,7 +47,7 @@
 <meta name="twitter:creator" content="@kakauandme">
 <meta name="twitter:title" content="<?php echo $title; ?>">
 <meta name="twitter:description" content="<?php echo $description; ?>">
-<meta name="twitter:image:src" content="<?php echo $baseURL; ?>/img/config/z">
+<meta name="twitter:image:src" content="<?php echo $baseURL; ?>/img/config/screenshot.jpg">
 <?php /*Facebook OG */ ?>
 <meta property="og:title" content="<?php echo $title; ?>" />
 <meta property="og:site_name" content="<?php echo $siteName; ?>"/>
