@@ -16,6 +16,11 @@ dom.audio = document.getElementById("audio");
 
 dom.links = document.getElementById("links").children;
 global.navClick = function(e){
+    // ga('send', 'pageview', {
+    //     'page': e.target.href,
+    //     'title': e.target.title
+    // });
+    ga('send', 'event', 'Interface', 'Navigate'); 
     e.preventDefault();
     window.location.href = e.target.href;
 };
@@ -169,6 +174,7 @@ global.clickTrack = function(e) {
        global.selectTrack(target);
        history.pushState({}, '', "#" +_id);
     }
+    ga('send', 'event', 'Track', 'Zoom');
 };
 
 
@@ -211,6 +217,7 @@ global.playPause = function(){
        dom.cover.title="Play";
        dom.audio.pause();
     }else{
+        ga('send', 'event', 'Track', 'Play');
        dom.cover.className= "playing" ;
        dom.play.textContent = "pause";
        dom.cover.title="Pause";

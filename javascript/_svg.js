@@ -70,6 +70,7 @@ svg.click = function(d){
                     .attr("r", Math.floor(Math.min(svg.w, svg.h)/2) - svg.pad*2)
                     .attr("cy", Math.floor(svg.h/2))
                     .attr("cx", Math.floor(svg.w/2));
+    ga('send', 'event', 'Track', 'Zoom');
     
 };
 
@@ -88,6 +89,7 @@ svg.filter = function(d){
     };
     history.pushState({}, '', "#" +svg.genreShortName(svg.curGenre));
     svg.drawD3();
+    ga('send', 'event', 'Interface', 'Filter');
 };
 
 svg.clearFilters = function(){
