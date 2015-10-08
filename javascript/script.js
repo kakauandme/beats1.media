@@ -65,7 +65,8 @@ global.updateUrls = function(code){
         }
         for (var i = 0; i < items.length; i++) {         
             var id = items[i].getAttribute("data-target-id");
-            if(url = localStorage.getItem(id+"-"+code)){
+            var url = localStorage.getItem(id+"-"+code);
+            if(url){
                 items[i].href= url;
             }else{
                 var term = encodeURIComponent(items[i].getAttribute("data-artist") + " " + items[i].getAttribute("data-album") + " " + items[i].getAttribute("data-track"));
@@ -77,7 +78,7 @@ global.updateUrls = function(code){
 };
 
 function processTrack (response) {
-    if(response.resultCount == 1){
+    if(response.resultCount === 1){
         var track = response.results[0];
         if(track.country !== "USA"){
             var url = track.trackViewUrl;
@@ -89,15 +90,15 @@ function processTrack (response) {
                 console.error("Localstorage error: " + e);
                 localStorage.clear();
             }
-            
-            if(element = document.getElementById("link-"+uniqueId)){
+            var element = document.getElementById("link-"+uniqueId);
+            if(element){
                 element.href=url;
             }else{
                 console.error(uniqueId + " track doesn't match");
             }
         }
     }
-};
+}
 function processGeolocation(response){
 	if(response){
         global.country = response.country.toLowerCase();
@@ -152,7 +153,7 @@ global.selectTrack = function(target){
     tmp.src = src.replace("100x100", newWidth+"x"+newWidth);
 
     if(dom.listing.scrollTop){
-        global.scrollTo(listing, 0, 500);
+        global.scrollTo(dom.listing, 0, 500);
     }
 };
 
@@ -230,7 +231,7 @@ if(dom.cover){
 if(window.navigator.standalone){
     for (var i = 0; i < dom.links.length; i++) {
         dom.links[i].addEventListener("click", global.navClick, true);
-    };
+    }
 }
 
 global.country = global.readCookie("country");

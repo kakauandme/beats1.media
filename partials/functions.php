@@ -146,7 +146,7 @@ function getTopTracks(){
         `plays` `p1`
 
     WHERE
-        (`p1`.`date` >= (NOW() - INTERVAL 1 WEEK)) 
+        (`p1`.`date` >= (NOW() - INTERVAL 3 WEEK)) 
     GROUP BY trackId1) t1
     LEFT JOIN 
     

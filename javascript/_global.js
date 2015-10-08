@@ -14,7 +14,7 @@ global.loadScript = function(src, callback, arg){
 	s.async = "async";
 	s.onload = s.onreadystatechange = function() {
 		//console.log( this.readyState ); //uncomment this line to see which ready states are called.
-		if ( !r && (!this.readyState || this.readyState == 'complete') )
+		if ( !r && (!this.readyState || this.readyState === 'complete') )
 		{
 			r = true;
 			if(callback){
@@ -33,7 +33,7 @@ global.getImageWidth = function(w){
 			newWidth = global.artworkSizes[i];
 			break;
 		}
-	}; 
+	}
 
 	return newWidth;	
 };

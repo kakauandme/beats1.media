@@ -62,5 +62,5 @@ if(dom.grid){
 	var items = dom.grid.children;
 	for(var i = 0; i < items.length; i++) {
 		global.updateImage(items[i]);
-	};
+	}
 }
