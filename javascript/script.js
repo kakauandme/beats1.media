@@ -227,10 +227,11 @@ global.playPause = function(){
 if(dom.cover){
     dom.cover.addEventListener('click', global.playPause, true);
 }
-
-for (var i = 0; i < dom.links.length; i++) {
-    dom.links[i].addEventListener("click", global.navClick, true);
-};
+if(window.navigator.standalone){
+    for (var i = 0; i < dom.links.length; i++) {
+        dom.links[i].addEventListener("click", global.navClick, true);
+    };
+}
 
 global.country = global.readCookie("country");
 if(global.country){
