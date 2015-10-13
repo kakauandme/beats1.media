@@ -5,9 +5,9 @@ Various data visualisations based on scrobbled data from Beats 1 Radio.
 
 ##Pages
 
-- **Trending Tracks** -  displays new popular songs and allows to open any track in Apple Music
-- **Now playing** -  shows curently playing track and lets user to listen to it
-- **Hottest 100 Albums** - visualises most popular albums by play count, release date, genre and amount of trending singles in an album
+- [Trending Tracks](http://beats1.media) -  displays new popular songs and allows to open any track in Apple Music
+- [Now playing](http://beats1.media/now) -  shows curently playing track and lets user to listen to it
+- [Hottest 100 Albums](http://beats1.media/top100) - visualises most popular albums by play count, release date, genre and amount of trending singles in an album
 
 ##Recources
 
