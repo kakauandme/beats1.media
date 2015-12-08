@@ -2,7 +2,7 @@
 
 
 require_once("partials/variables.php");
-$cacheBuster = 33;
+$cacheBuster = 34;
 //$time_start = microtime(true);
 $siteName = "Beats 1 Media";
 $baseURL = "http://" . $_SERVER["HTTP_HOST"];
