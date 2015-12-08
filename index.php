@@ -12,7 +12,7 @@ $m = new Mustache_Engine;
 
 connect();
 //$lastTrack = getLastTrack();
-$topTracks = getTopTracks();
+$topTracks = getTrendingTracks();
 disconnect();
 
 

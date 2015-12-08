@@ -2,7 +2,7 @@
 
 
 require_once("partials/variables.php");
-$cacheBuster = 31;
+$cacheBuster = 33;
 //$time_start = microtime(true);
 $siteName = "Beats 1 Media";
 $baseURL = "http://" . $_SERVER["HTTP_HOST"];
@@ -119,7 +119,7 @@ function getLastMeta(){
 	return $lastRecord;
 }
 
-function getTopTracks(){
+function getTrendingTracks(){
 
 	global $connection;	
 

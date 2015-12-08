@@ -156,7 +156,7 @@ svg.genreShortName = function(str){
 svg.setGenreTitle = function(str){
     if(str){
         var titles = dom.title.getAttribute("data-text").split("100 ");
-        dom.title.textContent = titles[0] + "100 " + str + " " +titles[1];  
+        dom.title.textContent = titles[0] + " " + str + " " +titles[1];  
     }else{
         dom.title.textContent = dom.title.getAttribute("data-text");
     }
@@ -316,7 +316,7 @@ svg.setupD3 = function(container){
 
 
     
-    svg.data = topAlbums;
+    svg.data = topAlbums || [];
 
     svg.dataByGenre = d3.nest()
                             .key(function(d) { return d[svg.cKey]; })
@@ -407,7 +407,7 @@ svg.setupD3 = function(container){
     svg.radiusLegend.append("circle")
                 .style("fill-opacity", 0)
                 .attr("y",0)
-                .attr("stroke", "#fff");
+                .attr("stroke", "#888");
      svg.radiusLegend.append("svg:title")
                 .text("Radius of circles corelates to a number of popular songs in a particular album"); 
 
