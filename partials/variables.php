@@ -2,7 +2,7 @@
 
 	$currentFolderPath  =  getcwd() . "/";
 
-	$mediaPath = 'http://itsliveradiobackup.apple.com/streams/hub02/session02/64k/';
+	$mediaPath = 'http://itsliveradio.apple.com/streams/hub01/session02/64k/';
 
 	$playlistFilename = 'prog.m3u8';
 
