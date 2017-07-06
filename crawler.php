@@ -1,7 +1,7 @@
 <?php 
 
 	
-	$newLine = "<br />";
+	$newLine = "<br>\r\n";
 	
 	require_once("partials/functions.php");
 	
@@ -40,21 +40,17 @@
 
 		if($titlePos){
 			$title =  stripRandomChars(substr($file, $titlePos + strlen($titleAnchor), 100));
-
-			if(strlen($title) < 3){
-				logText($file);
-			}
-			logText("Title: ".$title);
+			logText("Title: ".$title . " (". strlen($title).")");
 		}
 		$album = "";
 		if($albumPos && $artistPos){
 			$album =stripRandomChars(substr($file, $albumPos + strlen($albumAnchor), $artistPos - $albumPos-strlen($albumAnchor)));	
-			logText("Album: ".$album );
+			logText("Album: ".$album . " (". strlen($album).")" );
 		}
 
 		if($artistPos && $titlePos){
 			$artist =stripRandomChars(substr($file, $artistPos + strlen($artisAnchor), $titlePos - $artistPos-strlen($artisAnchor)));	
-			logText("Artist:".$artist);
+			logText("Artist: ".$artist . " (". strlen($artist).")");
 		}
 		// else{
 		// 	logText("Not inough info");
@@ -67,7 +63,7 @@
 		// }
 		//timeExecution("Parse info");
 		
-		if(isset($title) && isset($artist)){
+		if(isset($title) && isset($artist) && strlen($title) > 3 && strlen($artist) > 3){
 
 			if(!$lastRecord ||  $lastRecord->title != $title ){
 
@@ -76,7 +72,7 @@
 				//timeExecution("Insert record");
 
 				//iTunes API request
-				$term = urlencode($artist . (isset($album)?(" " . $album):"") . " " . $title);
+				$term = urlencode($artist . ((isset($album) && strlen($album) > 3)?(" " . $album):"") . " " . $title);
 				// //echo $term;
 				$iTunesJSON =  file_get_contents('http://itunes.apple.com/search?term='.$term.'&media=music&entity=song&limit=1');
 				$iTunesData  = json_decode($iTunesJSON, true);
@@ -90,7 +86,7 @@
 					 //timeExecution("Add media");
 					
 				}else{
-					logText("No itunes info");
+					logText("No info at iTunes API for " . $term);
 				}
 
 				//$content = "<div style='background-image: url({$artwork});'><h1>{$artist} - {$title}</h1></div>";
@@ -105,17 +101,15 @@
 				//UPDATE filename in DB
 				updateRecord($lastRecord->id, $fileName);
 				//timeExecution("Update record");
-				logText("Song duplicate");
+				logText("Skipping track that is already captured");
 				
 			}
 		}else{
-			logText("Not enough info");
-			logText($file);
+			logText("Not enough meta info in the file");
+			//logText($file);
 		}
 
 	}else{
-		logText("File duplicate");
+		logText("Skipping file that is already captured");
 	}
 	disconnect();
-
-	

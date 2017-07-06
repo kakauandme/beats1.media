@@ -269,7 +269,7 @@ function insertMedia($data){
 		if(!$connection->query($sql)){
 			logText('Error : ('. $connection->errno .') '. $connection->error);
 		}else{
-			logText($data["trackName"] . " inserted");
+			logText("New track added");
 		}
 		
 	}
@@ -282,7 +282,7 @@ function insertMedia($data){
 	if(!$connection->query($sql)){
 			logText('Error : ('. $connection->errno .') '. $connection->error);
 	}else{
-			logText($data["trackName"] . " recorder");
+			logText("Play count incremented");
 	}
 
 	// echo "<pre>";
