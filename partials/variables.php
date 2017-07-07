@@ -14,6 +14,7 @@
 	$artworkAnchor = "artworkURL_640x";
 	$extentionAnchor = ".jpg";
 
+	$MIN_LENGTH = 2;
 
 
 	$servername = "localhost";

@@ -63,7 +63,7 @@
 		// }
 		//timeExecution("Parse info");
 		
-		if(isset($title) && isset($artist) && strlen($title) > 3 && strlen($artist) > 3){
+		if(isset($title) && isset($artist) && strlen($title) > $MIN_LENGTH && strlen($artist) > $MIN_LENGTH){
 
 			if(!$lastRecord ||  $lastRecord->title != $title ){
 
@@ -72,7 +72,7 @@
 				//timeExecution("Insert record");
 
 				//iTunes API request
-				$term = urlencode($artist . ((isset($album) && strlen($album) > 3)?(" " . $album):"") . " " . $title);
+				$term = urlencode($artist . ((isset($album) && strlen($album) > $MIN_LENGTH)?(" " . $album):"") . " " . $title);
 				// //echo $term;
 				$iTunesJSON =  file_get_contents('http://itunes.apple.com/search?term='.$term.'&media=music&entity=song&limit=1');
 				$iTunesData  = json_decode($iTunesJSON, true);
